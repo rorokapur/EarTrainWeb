@@ -12,47 +12,45 @@
 <script src="script.js"></script>
 </head>
 <div class="container=flex">
-    <div class="row m-3">
+    <div class="row p-4">
         <div class=" col-lg-1"></div>
-        <p class="col-lg-1 col-md-1">Notes: </p>
-        <select id="notes" class="col-lg-2 col-md-2 form-select">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
+        <select id="notes" class="col-lg-3 col-md-12 p-4 form-select">
+            <option value="1">1 Note</option>
+            <option value="2">2 Notes</option>
+            <option value="3">3 Notes</option>
+            <option value="4">4 Notes</option>
+            <option value="5">5 Notes</option>
+            <option value="6">6 Notes</option>
+            <option value="7">7 Notes</option>
+            <option value="8">8 Notes</option>
+            <option value="9">9 Notes</option>
+        </select>
+        <div class=" col-lg-1"></div>
+        <select id="chromatics" class="col-lg-3 col-md-12 p-4 form-select">
+            <option value="0">0 Chromatics</option>
+            <option value="1">1 Chromatic</option>
+            <option value="2">2 Chromatics</option>
+            <option value="3">3 Chromatics</option>
+            <option value="4">4 Chromatics</option>
+            <option value="5">5 Chromatics</option>
+            <option value="6">6 Chromatics</option>
+            <option value="7">7 Chromatics</option>
+            <option value="8">8 Chromatics</option>
+            <option value="9">9 Chromatics</option>
         </select>
         <div class="col-md-1"></div>
-        <p class="col-lg-1 col-md-2">Chromatics: </p>
-        <select id="chromatics" class="col-lg-2 col-md-2 form-select">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-        </select>
-        <div class="col-md-1"></div>
-        <button id="generate" class="col-lg-1 col-md-3 p-3 btn btn-primary">New</button>
+        <button id="generate" class="col-lg-1 col-md-12 p-4 btn btn-primary">New</button>
         
     </div>
-    <div class="row m-3">
+    <div class="row p-4">
         <div class="col-lg-1 col-md-0"></div>
-        <div class="btn-group col-lg-4 col-md-4">
-            <button id="playKey" class="btn btn-outline-primary">Play Key</button>
-            <button id="playChord" class="btn btn-outline-primary">Play Chord</button>
+        <div class="btn-group col-lg-4 col-md-12">
+            <button id="playKey" class="btn p-4 btn-outline-primary">Play Key</button>
+            <button id="playChord" class="btn p-4 btn-outline-primary">Play Chord</button>
     
         </div>
-        <input type="text" id="answer" class="col-lg-4 col-md-4 form-inline">
-        <button id="checkAnswer" class="col-lg-1 col-md-4 p-3 btn btn-primary">Check Answer</button>
+        <input type="text" id="answer" class="col-lg-4 col-md-8 form-inline">
+        <button id="checkAnswer" class="col-lg-1 col-md-4 p-4 btn btn-primary">Check Answer</button>
         <div class=col-lg-1></div>
     </div>
     
