@@ -39,24 +39,16 @@ function generate(numPref,chromPref){
     for (note = 0; note < chord.length; note++){
         chord[note]+=keyModifier;
     };
+    //load notes wavs
     notes = [];
     for (note = 0; note < chord.length; note++){
         noteNumber = chord[note].toString();
         fileName = "assets/notes/" + noteNumber + ".wav";
         notes[note] = new Audio(fileName);
-    };
-    for (note = 0; note < chord.length; note++){
-        notes[note].volume = 0;
-        notes[note].play();
     };
 };
 function playChord(){
-    notes = [];
-    for (note = 0; note < chord.length; note++){
-        noteNumber = chord[note].toString();
-        fileName = "assets/notes/" + noteNumber + ".wav";
-        notes[note] = new Audio(fileName);
-    };
+    //play note wavs
     for (note = 0; note < chord.length; note++){
         notes[note].play();
     };  
