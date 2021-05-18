@@ -46,6 +46,10 @@ function generate(numPref,chromPref){
         fileName = "assets/notes/" + noteNumber + ".wav";
         notes[note] = new Audio(fileName);
     };
+    //load key signature wav
+    key = keyModifier+1
+    fileName = "assets/keys/" + key + ".wav";
+    keyAudio = new Audio(fileName);
 };
 function playChord(){
     //play note wavs
@@ -54,10 +58,7 @@ function playChord(){
     };  
 };
 function playKey(){
-    key = keyModifier+1
-    fileName = "assets/keys/" + key + ".wav";
-        file = new Audio(fileName);
-        file.play();
+    keyAudio.play();
 }
 
 document.addEventListener("DOMContentLoaded", function(){
