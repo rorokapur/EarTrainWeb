@@ -11,11 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="script.js"></script>
 </head>
-<div class="container">
+<div class="container=flex">
     <div class="row m-3">
-        <div class=col-1></div>
-        <p class=col-2>Notes: </p>
-        <select id="notes" class="col-2 form-select">
+        <div class=" col-lg-1"></div>
+        <p class="col-lg-1 col-md-1">Notes: </p>
+        <select id="notes" class="col-lg-2 col-md-2 form-select">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -26,8 +26,9 @@
             <option value="8">8</option>
             <option value="9">9</option>
         </select>
-        <p class=col-3>Chromatics: </p>
-        <select id="chromatics" class="col-2 form-select">
+        <div class="col-md-1"></div>
+        <p class="col-lg-1 col-md-2">Chromatics: </p>
+        <select id="chromatics" class="col-lg-2 col-md-2 form-select">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -39,24 +40,20 @@
             <option value="8">8</option>
             <option value="9">9</option>
         </select>
-        <button id="generate" class="col-1 btn btn-primary">New</button>
-        <div class=col-1></div>
+        <div class="col-md-1"></div>
+        <button id="generate" class="col-lg-1 col-md-3 btn btn-primary">New</button>
+        
     </div>
     <div class="row m-3">
-        <div class=col-2></div>
-        <div class="btn-group btn-group col-8">
+        <div class="col-lg-1 col-md-0"></div>
+        <div class="btn-group col-lg-4 col-md-4">
             <button id="playKey" class="btn btn-outline-primary">Play Key</button>
             <button id="playChord" class="btn btn-outline-primary">Play Chord</button>
     
         </div>
-        <div class=col-2></div>
-        
-    </div>
-    <div class="row m-3">
-        <div class=col-1></div>
-        <input type="text" id="answer" class="col-8 form-inline">
-        <button id="checkAnswer" class="col-2 btn btn-primary">Submit</button>
-        <div class=col-1></div>
+        <input type="text" id="answer" class="col-lg-4 col-md-4 form-inline">
+        <button id="checkAnswer" class="col-lg-1 col-md-4 btn btn-primary">Check Answer</button>
+        <div class=col-lg-1></div>
     </div>
     
     
