@@ -52,10 +52,14 @@ function playChord(){
         notes[note].play();
     };
     for (note = 0; note < chord.length; note++){
+        noteNumber = chord[note].toString();
+        fileName = "assets/notes/" + noteNumber + ".wav";
+        notes[note] = new Audio(fileName);
+    };
+    for (note = 0; note < chord.length; note++){
         notes[note].volume = 1;
         notes[note].play();
-    };
-    
+    };    
 };
 function playKey(){
     key = keyModifier+1
