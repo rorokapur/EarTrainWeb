@@ -41,11 +41,14 @@ function generate(numPref,chromPref){
     };
 };
 function playChord(){
+    notes = [];
     for (note = 0; note < chord.length; note++){
         noteNumber = chord[note].toString();
         fileName = "assets/notes/" + noteNumber + ".wav";
-        file = new Audio(fileName);
-        file.play();
+        notes[note] = new Audio(fileName);
+    };
+    for (note = 0; note < chord.length; note++){
+        notes[note].play();
     };
 };
 function playKey(){
