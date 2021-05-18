@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function(){
         if (inputAnswer==fixedAnswer) {
             alert("Correct!");
         } else {
-            var warning = "Incorrect! Answer is: " + answer
+            var warning = "Incorrect! The answer is: " + answer
             alert(warning)
         };
 
