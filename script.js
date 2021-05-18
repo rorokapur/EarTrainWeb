@@ -40,7 +40,7 @@ function generate(numPref,chromPref){
         chord[note]+=keyModifier;
     };
 };
-function playChord(){
+function playWeird(volume){
     notes = [];
     for (note = 0; note < chord.length; note++){
         noteNumber = chord[note].toString();
@@ -48,18 +48,9 @@ function playChord(){
         notes[note] = new Audio(fileName);
     };
     for (note = 0; note < chord.length; note++){
-        notes[note].volume = 0;
+        notes[note].volume = volume;
         notes[note].play();
-    };
-    for (note = 0; note < chord.length; note++){
-        noteNumber = chord[note].toString();
-        fileName = "assets/notes/" + noteNumber + ".wav";
-        notes[note] = new Audio(fileName);
-    };
-    for (note = 0; note < chord.length; note++){
-        notes[note].volume = 1;
-        notes[note].play();
-    };    
+    };  
 };
 function playKey(){
     key = keyModifier+1
@@ -67,7 +58,10 @@ function playKey(){
         file = new Audio(fileName);
         file.play();
 }
-
+function playChord(){
+    playWeird(0);
+    playWeird(1);
+}
 document.addEventListener("DOMContentLoaded", function(){
     generate(1,0)
     document.getElementById("playKey").addEventListener("click", function(){
