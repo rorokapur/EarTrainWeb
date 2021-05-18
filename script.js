@@ -44,12 +44,9 @@ function playChord(){
     for (note = 0; note < chord.length; note++){
         noteNumber = chord[note].toString();
         fileName = "assets/notes/" + noteNumber + ".wav";
-        var notes = [];
-        notes[note] = new Pz.Sound(fileName);
+        file = new Audio(fileName);
+        file.play();
     };
-    var audio = new Pizzicato.Group(notes);
-    audio.play()
-
 };
 function playKey(){
     key = keyModifier+1
