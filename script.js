@@ -56,6 +56,9 @@ function playKey(){
         file.play();
 }
 generate(1,0);
-console.log(answer);
-console.log(chord)
-playKey();
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("play").addEventListener("click", function(){
+        playKey();
+
+    });
+  });
