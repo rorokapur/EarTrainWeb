@@ -48,8 +48,14 @@ function playChord(){
         notes[note] = new Audio(fileName);
     };
     for (note = 0; note < chord.length; note++){
+        notes[note].volume = 0;
         notes[note].play();
     };
+    for (note = 0; note < chord.length; note++){
+        notes[note].volume = 1;
+        notes[note].play();
+    };
+    
 };
 function playKey(){
     key = keyModifier+1
