@@ -1,7 +1,7 @@
 diatonic = [1,3,5,6,8,10,12,13,15,17,18,20,22,24,25];
 chromatic = [2,4,7,9,11,14,16,19,21,23];
 var chord = [];
-var answer = "";
+var answer;
 keyModifier = 0;
 solfege = ["ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do"];
 function getRandomSubarray(arr, size) {
@@ -21,12 +21,10 @@ function generate(numPref,chromPref){
     }
     // init variables
     chord = [];
-    answer = ";"
+    answer = ""
     //generate diatonics and chromatics
     var dia=numPref-chromPref;
-    console.log("Diatonics: ",dia)
     var chrom=chromPref;
-    console.log("Chromatics: ",dia)
     var diaNotes = getRandomSubarray(diatonic,dia);
     var chromNotes = getRandomSubarray(chromatic,chrom);
     //combine and sort notes
@@ -51,14 +49,39 @@ function playChord(){
     };
 };
 function playKey(){
-    fileName = "assets/keys/" + keyModifier + ".wav";
+    key = keyModifier+1
+    fileName = "assets/keys/" + key + ".wav";
         file = new Audio(fileName);
         file.play();
 }
-generate(1,0);
+
 document.addEventListener("DOMContentLoaded", function(){
-    document.getElementById("play").addEventListener("click", function(){
+    generate(1,0)
+    document.getElementById("playKey").addEventListener("click", function(){
         playKey();
+    });
+    document.getElementById("playChord").addEventListener("click", function(){
+        playChord();
+    });
+    document.getElementById("generate").addEventListener("click", function(){
+        var noteSelector = document.getElementById("notes");
+        noteSelection = noteSelector.value;
+        var chromSelector = document.getElementById("chromatics");
+        chromSelection = chromSelector.value;
+        generate(noteSelection,chromSelection);
+
+    });
+    document.getElementById("checkAnswer").addEventListener("click", function(){
+        var inputAnswer = document.getElementById("answer").value;
+        inputAnswer = inputAnswer.replace(/\s/g, '');
+        inputAnswer = inputAnswer.toLowerCase();
+        fixedAnswer = answer.replace(/\s/g, '');
+        if (inputAnswer==fixedAnswer) {
+            alert("Correct!");
+        } else {
+            var warning = "Incorrect! Answer is: " + answer
+            alert(warning)
+        };
 
     });
   });
