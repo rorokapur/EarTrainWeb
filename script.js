@@ -60,6 +60,18 @@ function playChord(){
 function playKey(){
     keyAudio.play();
 }
+function checkAnswer(){
+    var inputAnswer = document.getElementById("answer").value;
+    inputAnswer = inputAnswer.replace(/\s/g, '');
+    inputAnswer = inputAnswer.toLowerCase();
+    fixedAnswer = answer.replace(/\s/g, '');
+    if (inputAnswer==fixedAnswer) {
+        alert("Correct!");
+    } else {
+        var warning = "Incorrect! The answer is: " + answer
+        alert(warning)
+    };
+};
 
 document.addEventListener("DOMContentLoaded", function(){
     generate(1,0)
@@ -78,16 +90,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
     });
     document.getElementById("checkAnswer").addEventListener("click", function(){
-        var inputAnswer = document.getElementById("answer").value;
-        inputAnswer = inputAnswer.replace(/\s/g, '');
-        inputAnswer = inputAnswer.toLowerCase();
-        fixedAnswer = answer.replace(/\s/g, '');
-        if (inputAnswer==fixedAnswer) {
-            alert("Correct!");
-        } else {
-            var warning = "Incorrect! The answer is: " + answer
-            alert(warning)
-        };
+        checkAnswer();
+    
+    });
+    document.getElementById("answer").addEventListener("keydown", function(key){
+        if (key.code == "Enter") {  //checks whether the pressed key is "Enter"
+            checkAnswer();
+        }
 
     });
   });
