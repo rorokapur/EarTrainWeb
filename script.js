@@ -1,5 +1,5 @@
-diatonic = [1,3,5,6,8,10,12,13,15,17,18,20,22,24,25];
-chromatic = [2,4,7,9,11,14,16,19,21,23];
+diatonic = [1,3,5,6,8,10,12];
+chromatic = [2,4,7,9];
 var chord = [];
 var answer;
 keyModifier = 0;
@@ -29,7 +29,16 @@ function generate(numPref,chromPref){
     var chromNotes = getRandomSubarray(chromatic,chrom);
     //combine and sort notes
     chord = diaNotes.concat(chromNotes);
+    for (note = 0; note < chord.length; note++){
+        var octave = Math.round(Math.random());
+        console.log(octave)
+        if (octave==1){
+            chord[note]+=12;
+        }
+
+    };
     chord.sort((a, b) => a - b);
+    console.log(chord)
     //generate answer string
     for (note = 0; note < chord.length; note++){
         answer+=solfege[chord[note]]+" ";
