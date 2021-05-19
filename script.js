@@ -74,6 +74,7 @@ function checkAnswer(){
 };
 
 document.addEventListener("DOMContentLoaded", function(){
+    $('select').selectpicker();
     generate(1,0)
     document.getElementById("playKey").addEventListener("click", function(){
         playKey();
