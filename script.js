@@ -31,14 +31,12 @@ function generate(numPref,chromPref){
     chord = diaNotes.concat(chromNotes);
     for (note = 0; note < chord.length; note++){
         var octave = Math.round(Math.random());
-        console.log(octave)
         if (octave==1){
             chord[note]+=12;
         }
 
     };
     chord.sort((a, b) => a - b);
-    console.log(chord)
     //generate answer string
     for (note = 0; note < chord.length; note++){
         answer+=solfege[chord[note]]+" ";
