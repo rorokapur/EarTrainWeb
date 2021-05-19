@@ -24,11 +24,14 @@
         <!-- (Optional) Latest compiled and minified JavaScript translation files -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/i18n/defaults-*.min.js"></script>
         <script src="script.js"></script>
+        <style>
+            body {overflow-x: hidden;}
+        </style>
     </head>
     <body>
-        <div class="container=flex">
+        <div class="container=fluid">
             <div class="row p-4">
-                <div class=" col-lg-1"></div>
+                <div class="col-lg-1 col-md-0"></div>
                 <select id="notes" class="col-lg-3 col-md-12 p-4 selectpicker" data-style="btn-primary">
                     <option value="1">1 Note</option>
                     <option value="2">2 Notes</option>
@@ -40,7 +43,7 @@
                     <option value="8">8 Notes</option>
                     <option value="9">9 Notes</option>
                 </select>
-                <div class=" col-lg-1"></div>
+                <div class=" col-lg-1 col-md-0"></div>
                 <select id="chromatics" class="col-lg-3 col-md-12 p-4 selectpicker" data-style="btn-primary">
                     <option value="0">0 Chromatics</option>
                     <option value="1">1 Chromatic</option>
@@ -53,7 +56,7 @@
                     <option value="8">8 Chromatics</option>
                     <option value="9">9 Chromatics</option>
                 </select>
-                <div class="col-md-1"></div>
+                <div class="col-lg-1 col-md-0"></div>
                 <button id="generate" class="col-lg-1 col-md-12 p-4 btn btn-primary">New Notes</button>
                 
             </div>
@@ -66,7 +69,7 @@
                 </div>
                 <input type="text" id="answer" class="col-lg-4 p-4 col-md-8 form-inline" placeholder="Enter your answer">
                 <button id="checkAnswer" class="col-lg-1 col-md-4 p-4 btn btn-primary">Check Answer</button>
-                <div class=col-lg-1></div>
+                <div class="col-lg-1 col-md-0"></div>
             </div>
             
             
