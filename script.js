@@ -44,12 +44,16 @@ function generate(numPref,chromPref){
     for (note = 0; note < chord.length; note++){
         noteNumber = chord[note].toString();
         fileName = "assets/notes/" + noteNumber + ".wav";
-        notes[note] = new Audio(fileName);
+        notes[note] = new  Howl({
+            src: [fileName]
+        });
     };
     //load key signature wav
     key = keyModifier+1
     fileName = "assets/keys/" + key + ".wav";
-    keyAudio = new Audio(fileName);
+    keyAudio = new Howl({
+        src: [fileName]
+    });
 };
 function playChord(){
     //play note wavs
