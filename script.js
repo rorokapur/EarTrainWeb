@@ -77,15 +77,26 @@ function checkAnswer(){
     inputAnswer = inputAnswer.toLowerCase();
     fixedAnswer = answer.replace(/\s/g, '');
     if (inputAnswer==fixedAnswer) {
-        alert("Correct!");
+        $('#feedback-box').removeClass("alert-secondary");
+        $('#feedback-box').removeClass("alert-danger");
+        $('#feedback-box').addClass("alert-success");
+        $('#feedback').text("Correct!");
+        $('#feedback-text').text('Click "New Notes" to continue.');
+        $('#reveal').hide();
     } else {
         var warning = "Incorrect! The answer is: " + answer
-        alert(warning)
+        $('#feedback-box').removeClass("alert-success");
+        $('#feedback-box').removeClass("alert-secondary");
+        $('#feedback-box').addClass("alert-danger");
+        $('#feedback').text("Incorrect!");
+        $('#feedback-text').text('Try again.');
+        $('#reveal').show();
     };
 };
 
 document.addEventListener("DOMContentLoaded", function(){
     $('select').selectpicker();
+    $('#reveal').hide();
     generate(1,0)
     document.getElementById("playKey").addEventListener("click", function(){
         playKey();
@@ -99,10 +110,22 @@ document.addEventListener("DOMContentLoaded", function(){
         var chromSelector = document.getElementById("chromatics");
         chromSelection = chromSelector.value;
         generate(noteSelection,chromSelection);
+        $('#feedback-box').removeClass("alert-success");
+        $('#feedback-box').removeClass("alert-danger");
+        $('#feedback-box').addClass("alert-secondary");
+        $('#feedback').text("Enter your answer");
+        $('#feedback-text').text('Click "Check Answer" to continue.');
+        $('#reveal').hide();
 
     });
     document.getElementById("checkAnswer").addEventListener("click", function(){
         checkAnswer();
+    
+    });
+    document.getElementById("reveal").addEventListener("click", function(){
+        $('#reveal').hide();
+        var message="The answer was: "+answer;
+        $('#feedback-text').text(message)
     
     });
     document.getElementById("answer").addEventListener("keydown", function(key){
