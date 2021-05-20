@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Ear Training</title>
+        <link rel="shortcut icon" href="assets/icon/icon.ico" type="image/x-icon">  
     
         
         <!-- jQuery library -->
@@ -26,6 +27,7 @@
         <style>
             body {
                 overflow-x: hidden;
+                
             }
 
             
@@ -38,10 +40,10 @@
               <h1 class="display-4">Solfege Ear Training</h1>
             </div>
           </div>
-        <div class="container-fluid text-center">
+        <div class="container-fluid">
             <div class="row p-2">
                 <div class="col-lg-1 col-md-0"></div>
-                <select id="notes" class="col-lg-3 col-md-12 p-1 selectpicker" data-style="btn-primary">
+                <select id="notes" class="col-lg-3 col-md-12 p-1 selectpicker" data-style="btn-primary" >
                     <option value="1">1 Note</option>
                     <option value="2">2 Notes</option>
                     <option value="3">3 Notes</option>
@@ -51,7 +53,7 @@
                     <option value="7">7 Notes</option>
                 </select>
                 <div class=" col-lg-1 col-md-0"></div>
-                <select id="chromatics" class="col-lg-3 col-md-12 p-1 selectpicker" data-style="btn-primary">
+                <select id="chromatics" class="col-lg-3 col-md-12 p-1 selectpicker" data-style="btn-primary" >
                     <option value="0">0 Chromatics</option>
                     <option value="1">1 Chromatic</option>
                     <option value="2">2 Chromatics</option>
@@ -77,13 +79,20 @@
             </div>
             <div class="col-lg-10 offset-lg-1 text-center">
                 <div class="alert alert-secondary" id="feedback-box" role="alert">
-                    <h4 class="alert-heading" id="feedback">Welcome!</h4>
+                    <h4 class="alert-heading" id="feedback">Hello!</h4>
                     <hr>
                     <p id="feedback-text">Enter your preferred settings and press "New Notes" to start.</p>
                     <a href="#" class="link-danger" id="reveal">Reveal Answer</a>
                 </div>
-
             </div>
+            <h1 class="offset-lg-1 offset-md-0">How to use:</h1>
+            <ol class="offset-lg-1 offset-md-0">
+                <li style="font-size: 25px;">Enter your preferences for notes and chromatics. Chromatics are any notes that are not in the major scale.</li>
+                <li style="font-size: 25px;">Click "New Notes" to generate a new set of notes.</li>
+                <li style="font-size: 25px;">Play the key to find do.</li>
+                <li style="font-size: 25px;">Listen to the chord as many times as you need to.</li>
+                <li style="font-size: 25px;">Enter your answer into the box and submit it. Use "So" instead of "Sol". Make sure to use the chromatics Ra, Me, Fi, Le, and Te instead of Di, Ri, Se, Si and Li. </li>
+            </ol>
             
             
             
