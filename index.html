@@ -32,9 +32,14 @@
         </style>
         
     </head>
-    <body class="h-100 flex-shrink-0">
-        <div class="container-fluid" style="padding-top: 60px;">
-            
+    <body>
+        <div class="jumbotron jumbotron-fluid text-center p-4">
+            <div class="container">
+              <h1 class="display-4">Solfege Ear Training</h1>
+              <p class="lead"></p>
+            </div>
+          </div>
+        <div class="container-fluid text-center">
             <div class="row p-4">
                 <div class="col-lg-1 col-md-0"></div>
                 <select id="notes" class="col-lg-3 col-md-12 p-4 selectpicker" data-style="btn-primary">
@@ -58,7 +63,7 @@
                     <option value="7">7 Chromatics</option>
                 </select>
                 <div class="col-lg-1 col-md-0"></div>
-                <button id="generate" class="col-lg-1 col-md-12 p-4 btn btn-primary">New Notes</button>
+                <button id="generate" class="col-lg-2 col-md-12 p-4 btn btn-primary">New Notes</button>
             </div>
             <div class="row p-4">
                 <div class="col-lg-1 col-md-0"></div>
@@ -68,10 +73,10 @@
             
                 </div>
                 <input type="text" id="answer" class="col-lg-4 p-4 col-md-8 form-inline" placeholder="Enter your answer">
-                <button id="checkAnswer" class="col-lg-1 col-md-4 p-4 btn btn-primary">Check Answer</button>
+                <button id="checkAnswer" class="col-lg-2 col-md-4 p-4 btn btn-primary">Check Answer</button>
                 <div class="col-lg-1 col-md-0"></div>
             </div>
-            <div class="col-lg-9 offset-lg-1 text-center">
+            <div class="col-lg-10 offset-lg-1 text-center">
                 <div class="alert alert-secondary" id="feedback-box" role="alert">
                     <h4 class="alert-heading" id="feedback">Welcome!</h4>
                     <hr>
