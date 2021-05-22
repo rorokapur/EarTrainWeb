@@ -52,8 +52,7 @@ function generate(numPref,chromPref){
         noteNumber = chord[note].toString();
         fileName = "assets/notes/" + noteNumber + ".wav";
         notes[note] = new  Howl({
-            src: [fileName],
-            html5: true
+            src: [fileName]
         });
     };
     //load key signature wav
