@@ -15,6 +15,8 @@ function getRandomSubarray(arr, size) {
     return shuffled.slice(min);
 }
 function generate(numPref,chromPref){
+    //clear answer field
+    document.getElementById('answer').value='';
     //check for invalid settings
     if (chromPref>numPref){
         return
@@ -76,6 +78,7 @@ function checkAnswer(){
     inputAnswer = inputAnswer.replace(/\s/g, '');
     inputAnswer = inputAnswer.toLowerCase();
     fixedAnswer = answer.replace(/\s/g, '');
+    document.getElementById('answer').value='';
     if (inputAnswer==fixedAnswer) {
         $('#feedback-box').removeClass("alert-secondary");
         $('#feedback-box').removeClass("alert-danger");
