@@ -78,7 +78,6 @@ function checkAnswer(){
     inputAnswer = inputAnswer.replace(/\s/g, '');
     inputAnswer = inputAnswer.toLowerCase();
     fixedAnswer = answer.replace(/\s/g, '');
-    document.getElementById('answer').value='';
     if (inputAnswer==fixedAnswer) {
         $('#feedback-box').removeClass("alert-secondary");
         $('#feedback-box').removeClass("alert-danger");
