@@ -1,5 +1,5 @@
 diatonic = [1,3,5,6,8,10,12];
-chromatic = [2,4,7,9];
+chromatic = [2,4,7,9,11];
 var chord = [];
 var answer;
 keyModifier = 0;
