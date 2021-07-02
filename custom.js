@@ -4,45 +4,108 @@ var chord = [];
 var answer;
 keyModifier = 0;
 solfege = ["ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do"];
-function getRandomSubarray(arr, size) {
-    var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
-    while (i-- > min) {
-        index = Math.floor((i + 1) * Math.random());
-        temp = shuffled[index];
-        shuffled[index] = shuffled[i];
-        shuffled[i] = temp;
-    }
-    return shuffled.slice(min);
+var parameters = new URLSearchParams(window.location.search);
+var generatorParams = parameters.get('n');
+var showAnswer = parameters.get('sa');
+var generatorSettings = Array.from(generatorParams.toString());
+var numberOfExcercises = 0;
+var excersizeCounter = [];
+var currentExcersize = 1;
+for (i=0; i<generatorSettings.length; i ++){
+    excersizeCounter[i]=generatorSettings[i];
 }
-function generate(numPref,chromPref){
+console.log(generatorSettings);
+while(excersizeCounter.length!==0){
+    var numPref = excersizeCounter.shift();
+    for (i = 0; i < numPref; i++){
+        excersizeCounter.shift();
+        
+        
+
+    };
+    numberOfExcercises+=1;
+
+
+}
+
+console.log(numberOfExcercises);
+for (i=0; i < generatorSettings.length; i++){
+    if (generatorSettings[i]=="0"){
+        generatorSettings[i]="10";
+    }
+    if (generatorSettings[i]=="q"){
+        generatorSettings[i]="11";
+    }
+    if (generatorSettings[i]=="w"){
+        generatorSettings[i]="12";
+    }
+    if (generatorSettings[i]=="e"){
+        generatorSettings[i]="13";
+    }
+    if (generatorSettings[i]=="r"){
+        generatorSettings[i]="14";
+    }
+    if (generatorSettings[i]=="t"){
+        generatorSettings[i]="15";
+    }
+    if (generatorSettings[i]=="y"){
+        generatorSettings[i]="16";
+    }
+    if (generatorSettings[i]=="u"){
+        generatorSettings[i]="17";
+    }
+    if (generatorSettings[i]=="i"){
+        generatorSettings[i]="18";
+    }
+    if (generatorSettings[i]=="o"){
+        generatorSettings[i]="19";
+    }
+    if (generatorSettings[i]=="p"){
+        generatorSettings[i]="20";
+    }
+    if (generatorSettings[i]=="a"){
+        generatorSettings[i]="21";
+    }
+    if (generatorSettings[i]=="s"){
+        generatorSettings[i]="22";
+    }
+    if (generatorSettings[i]=="d"){
+        generatorSettings[i]="23";
+    }
+    if (generatorSettings[i]=="f"){
+        generatorSettings[i]="24";
+    }
+    generatorSettings[i] = parseInt(generatorSettings[i])
+}
+console.log(generatorSettings);
+function generate(){
+    if (generatorSettings.length == 0){
+        document.body.innerHTML = '';
+
+    };
+    
+
     //clear answer field
     document.getElementById('answer').value='';
     //check for invalid settings
-    if (chromPref>numPref){
-        return
-    }
     // init variables
     chord = [];
-    answer = "";
+    answer = ""
     //generate diatonics and chromatics
-    var dia=numPref-chromPref;
-    var chrom=chromPref;
-    var diaNotes = getRandomSubarray(diatonic,dia);
-    var chromNotes = getRandomSubarray(chromatic,chrom);
-    //combine and sort notes
-    chord = diaNotes.concat(chromNotes);
-    for (note = 0; note < chord.length; note++){
-        var octave = Math.round(Math.random());
-        if (octave==1){
-            chord[note]+=12;
-        }
+    var numPref = generatorSettings.shift();
+    console.log(numPref);
+    for (i = 0; i < numPref; i++){
+        chord[i]=generatorSettings.shift();
+        
 
     };
     chord.sort((a, b) => a - b);
+    console.log(chord);
     //generate answer string
     for (note = 0; note < chord.length; note++){
         answer+=solfege[chord[note]]+" ";
     };
+    console.log(answer);
     //apply key
     keyModifier = Math.floor(Math.random() * 12);
     for (note = 0; note < chord.length; note++){
@@ -92,14 +155,23 @@ function checkAnswer(){
         $('#feedback-box').addClass("alert-danger");
         $('#feedback').text("Incorrect!");
         $('#feedback-text').text('Try again.');
-        $('#reveal').show();
+        if (showAnswer=="true"){
+            $('#reveal').show();
+        }
     };
 };
 
 document.addEventListener("DOMContentLoaded", function(){
+
+
+
+
+
+    var titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
+    document.getElementById("title").innerHTML=titleString;
     $('select').selectpicker();
     $('#reveal').hide();
-    generate(1,0)
+    generate();
     document.getElementById("playKey").addEventListener("click", function(){
         playKey();
     });
@@ -107,11 +179,10 @@ document.addEventListener("DOMContentLoaded", function(){
         playChord();
     });
     document.getElementById("generate").addEventListener("click", function(){
-        var noteSelector = document.getElementById("notes");
-        noteSelection = noteSelector.value;
-        var chromSelector = document.getElementById("chromatics");
-        chromSelection = chromSelector.value;
-        generate(noteSelection,chromSelection);
+        currentExcersize+=1;
+        var titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
+        document.getElementById("title").innerHTML=titleString;
+        generate();
         $('#feedback-box').removeClass("alert-success");
         $('#feedback-box').removeClass("alert-danger");
         $('#feedback-box').addClass("alert-secondary");
