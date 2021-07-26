@@ -1,22 +1,22 @@
 diatonic = [1,3,5,6,8,10,12];
 chromatic = [2,4,7,9,11];
-var chord = [];
-var answer;
+let chord = [];
+let answer;
 keyModifier = 0;
 solfege = ["ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do"];
-var parameters = new URLSearchParams(window.location.search);
-var generatorParams = parameters.get('n');
-var showAnswer = parameters.get('sa');
-var generatorSettings = Array.from(generatorParams.toString());
-var numberOfExcercises = 0;
-var excersizeCounter = [];
-var currentExcersize = 1;
+let parameters = new URLSearchParams(window.location.search);
+let generatorParams = parameters.get('n');
+let showAnswer = parameters.get('sa');
+let generatorSettings = Array.from(generatorParams.toString());
+let numberOfExcercises = 0;
+let excersizeCounter = [];
+let currentExcersize = 1;
 for (i=0; i<generatorSettings.length; i ++){
     excersizeCounter[i]=generatorSettings[i];
 }
 console.log(generatorSettings);
 while(excersizeCounter.length!==0){
-    var numPref = excersizeCounter.shift();
+    let numPref = excersizeCounter.shift();
     for (i = 0; i < numPref; i++){
         excersizeCounter.shift();
         
@@ -88,11 +88,11 @@ function generate(){
     //clear answer field
     document.getElementById('answer').value='';
     //check for invalid settings
-    // init variables
+    // init letiables
     chord = [];
     answer = ""
     //generate diatonics and chromatics
-    var numPref = generatorSettings.shift();
+    let numPref = generatorSettings.shift();
     console.log(numPref);
     for (i = 0; i < numPref; i++){
         chord[i]=generatorSettings.shift();
@@ -137,7 +137,7 @@ function playKey(){
     keyAudio.play();
 }
 function checkAnswer(){
-    var inputAnswer = document.getElementById("answer").value;
+    let inputAnswer = document.getElementById("answer").value;
     inputAnswer = inputAnswer.replace(/\s/g, '');
     inputAnswer = inputAnswer.toLowerCase();
     fixedAnswer = answer.replace(/\s/g, '');
@@ -149,7 +149,7 @@ function checkAnswer(){
         $('#feedback-text').text('Click "New Notes" to continue.');
         $('#reveal').hide();
     } else {
-        var warning = "Incorrect! The answer is: " + answer
+        let warning = "Incorrect! The answer is: " + answer
         $('#feedback-box').removeClass("alert-success");
         $('#feedback-box').removeClass("alert-secondary");
         $('#feedback-box').addClass("alert-danger");
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-    var titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
+    let titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
     document.getElementById("title").innerHTML=titleString;
     $('select').selectpicker();
     $('#reveal').hide();
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     document.getElementById("generate").addEventListener("click", function(){
         currentExcersize+=1;
-        var titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
+        let titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
         document.getElementById("title").innerHTML=titleString;
         generate();
         $('#feedback-box').removeClass("alert-success");
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     document.getElementById("reveal").addEventListener("click", function(){
         $('#reveal').hide();
-        var message="The answer was: "+answer;
+        let message="The answer was: "+answer;
         $('#feedback-text').text(message)
     
     });

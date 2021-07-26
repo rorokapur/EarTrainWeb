@@ -1,11 +1,11 @@
 diatonic = [1,3,5,6,8,10,12];
 chromatic = [2,4,7,9,11];
-var chord = [];
-var answer;
+let chord = [];
+let answer;
 keyModifier = 0;
 solfege = ["ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do"];
 function getRandomSubarray(arr, size) {
-    var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+    let shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
     while (i-- > min) {
         index = Math.floor((i + 1) * Math.random());
         temp = shuffled[index];
@@ -21,18 +21,18 @@ function generate(numPref,chromPref){
     if (chromPref>numPref){
         return
     }
-    // init variables
+    // init letiables
     chord = [];
     answer = "";
     //generate diatonics and chromatics
-    var dia=numPref-chromPref;
-    var chrom=chromPref;
-    var diaNotes = getRandomSubarray(diatonic,dia);
-    var chromNotes = getRandomSubarray(chromatic,chrom);
+    let dia=numPref-chromPref;
+    let chrom=chromPref;
+    let diaNotes = getRandomSubarray(diatonic,dia);
+    let chromNotes = getRandomSubarray(chromatic,chrom);
     //combine and sort notes
     chord = diaNotes.concat(chromNotes);
     for (note = 0; note < chord.length; note++){
-        var octave = Math.round(Math.random());
+        let octave = Math.round(Math.random());
         if (octave==1){
             chord[note]+=12;
         }
@@ -74,7 +74,7 @@ function playKey(){
     keyAudio.play();
 }
 function checkAnswer(){
-    var inputAnswer = document.getElementById("answer").value;
+    let inputAnswer = document.getElementById("answer").value;
     inputAnswer = inputAnswer.replace(/\s/g, '');
     inputAnswer = inputAnswer.toLowerCase();
     fixedAnswer = answer.replace(/\s/g, '');
@@ -86,7 +86,7 @@ function checkAnswer(){
         $('#feedback-text').text('Click "New Notes" to continue.');
         $('#reveal').hide();
     } else {
-        var warning = "Incorrect! The answer is: " + answer
+        let warning = "Incorrect! The answer is: " + answer
         $('#feedback-box').removeClass("alert-success");
         $('#feedback-box').removeClass("alert-secondary");
         $('#feedback-box').addClass("alert-danger");
@@ -107,9 +107,9 @@ document.addEventListener("DOMContentLoaded", function(){
         playChord();
     });
     document.getElementById("generate").addEventListener("click", function(){
-        var noteSelector = document.getElementById("notes");
+        let noteSelector = document.getElementById("notes");
         noteSelection = noteSelector.value;
-        var chromSelector = document.getElementById("chromatics");
+        let chromSelector = document.getElementById("chromatics");
         chromSelection = chromSelector.value;
         generate(noteSelection,chromSelection);
         $('#feedback-box').removeClass("alert-success");
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     document.getElementById("reveal").addEventListener("click", function(){
         $('#reveal').hide();
-        var message="The answer was: "+answer;
+        let message="The answer was: "+answer;
         $('#feedback-text').text(message)
     
     });
