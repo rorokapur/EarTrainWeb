@@ -1,8 +1,9 @@
 diatonic = [1,3,5,6,8,10,12];
 chromatic = [2,4,7,9,11];
 let chord = [];
-let answer;
-keyModifier = 0;
+let answer = [];
+let answerText = "";
+let keyModifier = 0;
 solfege = ["ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do"];
 let parameters = new URLSearchParams(window.location.search);
 let generatorParams = parameters.get('n');
@@ -88,9 +89,10 @@ function generate(){
     //clear answer field
     document.getElementById('answer').value='';
     //check for invalid settings
-    // init letiables
+    // init variables
     chord = [];
-    answer = ""
+    answer = [];
+    answerText = "";
     //generate diatonics and chromatics
     let numPref = generatorSettings.shift();
     console.log(numPref);
@@ -100,10 +102,10 @@ function generate(){
 
     };
     chord.sort((a, b) => a - b);
-    console.log(chord);
+    answer = [...chord];
     //generate answer string
-    for (note = 0; note < chord.length; note++){
-        answer+=solfege[chord[note]]+" ";
+    for (let note = 0; note < chord.length; note++){
+        answerText+=solfege[chord[note]]+" ";
     };
     console.log(answer);
     //apply key
@@ -138,17 +140,67 @@ function playKey(){
 }
 function checkAnswer(){
     let inputAnswer = document.getElementById("answer").value;
-    inputAnswer = inputAnswer.replace(/\s/g, '');
     inputAnswer = inputAnswer.toLowerCase();
-    fixedAnswer = answer.replace(/\s/g, '');
-    if (inputAnswer==fixedAnswer) {
+    inputArray = inputAnswer.split(" ");
+    console.log(inputArray);
+    for (let i = 0; i < inputArray.length; i++){
+        if (inputArray[i]=="do"){
+            inputArray[i]=1;
+        }
+        if (inputArray[i]=="di"||inputArray[i]=="ra"){
+            inputArray[i]=2;
+        }
+        if (inputArray[i]=="re"){
+            inputArray[i]=3;
+        }
+        if (inputArray[i]=="ri"||inputArray[i]=="me"){
+            inputArray[i]=4;
+        }
+        if (inputArray[i]=="mi"){
+            inputArray[i]=5;
+        }
+        if (inputArray[i]=="fa"){
+            inputArray[i]=6;
+        }
+        if (inputArray[i]=="fi"){
+            inputArray[i]=7;
+        }
+        if (inputArray[i]=="so"||inputArray[i]=="sol"){
+            inputArray[i]=8;
+        }
+        if (inputArray[i]=="si"||inputArray[i]=="le"){
+            inputArray[i]=9;
+        }
+        if (inputArray[i]=="la"){
+            inputArray[i]=10;
+        }
+        if (inputArray[i]=="li"||inputArray[i]=="te"){
+            inputArray[i]=11;
+        }
+        if (inputArray[i]=="ti"){
+            inputArray[i]=12;
+        }
+    }
+    console.log(inputArray);
+    for (let i = 0; i < answer.length; i++){
+        if (inputArray[i]==answer[i]||inputArray[i]==answer[i]-12){
+            correctAnswer = true;
+        }
+        else{
+            correctAnswer = false;
+            break;
+        }
+
+    }
+    if (correctAnswer) {
         $('#feedback-box').removeClass("alert-secondary");
         $('#feedback-box').removeClass("alert-danger");
         $('#feedback-box').addClass("alert-success");
         $('#feedback').text("Correct!");
-        $('#feedback-text').text('Click "New Notes" to continue.');
+        $('#feedback-text').text('Click "Next" to continue.');
         $('#reveal').hide();
-    } else {
+    } 
+    else {
         let warning = "Incorrect! The answer is: " + answer
         $('#feedback-box').removeClass("alert-success");
         $('#feedback-box').removeClass("alert-secondary");
@@ -197,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     document.getElementById("reveal").addEventListener("click", function(){
         $('#reveal').hide();
-        let message="The answer was: "+answer;
+        let message="The answer was: "+answerText;
         $('#feedback-text').text(message)
     
     });
