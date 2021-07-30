@@ -132,26 +132,26 @@ function checkAnswer(){
 
     }
     if (correctAnswer) {
-        $('#feedback-box').removeClass("alert-secondary");
-        $('#feedback-box').removeClass("alert-danger");
-        $('#feedback-box').addClass("alert-success");
-        $('#feedback').text("Correct!");
-        $('#feedback-text').text('Click "New Notes" to continue.');
-        $('#reveal').hide();
+        document.getElementById("feedback-box").classList.remove("alert-secondary");
+        document.getElementById("feedback-box").classList.remove("alert-danger");
+        document.getElementById("feedback-box").classList.add("alert-success");
+        document.getElementById("feedback").innerHTML = 'Correct!';
+        document.getElementById("feedback-text").innerHTML = 'Click "New Notes" to continue.';
+        document.getElementById("reveal").style.display = "none";
     } 
     else {
-        $('#feedback-box').removeClass("alert-success");
-        $('#feedback-box').removeClass("alert-secondary");
-        $('#feedback-box').addClass("alert-danger");
-        $('#feedback').text("Incorrect!");
-        $('#feedback-text').text('Try again.');
-        $('#reveal').show();
-    };
+        document.getElementById("feedback-box").classList.remove("alert-success");
+        document.getElementById("feedback-box").classList.remove("alert-secondary");
+        document.getElementById("feedback-box").classList.add("alert-danger");
+        document.getElementById("feedback").innerHTML = 'Incorrect!';
+        document.getElementById("feedback-text").innerHTML = 'Try again.';
+        document.getElementById("reveal").style.display = "inline";
+    }; 
 };
 
 document.addEventListener("DOMContentLoaded", function(){
     $('select').selectpicker();
-    $('#reveal').hide();
+    document.getElementById("reveal").style.display = "none";
     generate(1,0)
     document.getElementById("playKey").addEventListener("click", function(){
         playKey();
@@ -165,12 +165,12 @@ document.addEventListener("DOMContentLoaded", function(){
         let chromSelector = document.getElementById("chromatics");
         chromSelection = chromSelector.value;
         generate(noteSelection,chromSelection);
-        $('#feedback-box').removeClass("alert-success");
-        $('#feedback-box').removeClass("alert-danger");
-        $('#feedback-box').addClass("alert-secondary");
-        $('#feedback').text("Enter your answer");
-        $('#feedback-text').text('Click "Check Answer" to continue.');
-        $('#reveal').hide();
+        document.getElementById("feedback-box").classList.remove("alert-success");
+        document.getElementById("feedback-box").classList.remove("alert-danger");
+        document.getElementById("feedback-box").classList.add("alert-secondary");
+        document.getElementById("feedback").innerHTML = 'Enter your answer';
+        document.getElementById("feedback-text").innerHTML = 'Click "Check Answer" to continue.';
+        document.getElementById("reveal").style.display = "none";
 
     });
     document.getElementById("checkAnswer").addEventListener("click", function(){
@@ -178,9 +178,9 @@ document.addEventListener("DOMContentLoaded", function(){
     
     });
     document.getElementById("reveal").addEventListener("click", function(){
-        $('#reveal').hide();
+        document.getElementById("reveal").style.display = "none";
         let message="The answer was: "+answerText;
-        $('#feedback-text').text(message)
+        document.getElementById("feedback-text").innerHTML = message;
     
     });
     document.getElementById("answer").addEventListener("keydown", function(key){

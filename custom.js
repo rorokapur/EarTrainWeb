@@ -193,22 +193,22 @@ function checkAnswer(){
 
     }
     if (correctAnswer) {
-        $('#feedback-box').removeClass("alert-secondary");
-        $('#feedback-box').removeClass("alert-danger");
-        $('#feedback-box').addClass("alert-success");
-        $('#feedback').text("Correct!");
-        $('#feedback-text').text('Click "Next" to continue.');
-        $('#reveal').hide();
+        document.getElementById("feedback-box").classList.remove("alert-secondary");
+        document.getElementById("feedback-box").classList.remove("alert-danger");
+        document.getElementById("feedback-box").classList.add("alert-success");
+        document.getElementById("feedback").innerHTML = 'Correct!';
+        document.getElementById("feedback-text").innerHTML = 'Click "New Notes" to continue.';
+        document.getElementById("reveal").style.display = "none";
     } 
     else {
         let warning = "Incorrect! The answer is: " + answer
-        $('#feedback-box').removeClass("alert-success");
-        $('#feedback-box').removeClass("alert-secondary");
-        $('#feedback-box').addClass("alert-danger");
-        $('#feedback').text("Incorrect!");
-        $('#feedback-text').text('Try again.');
+        document.getElementById("feedback-box").classList.remove("alert-success");
+        document.getElementById("feedback-box").classList.remove("alert-secondary");
+        document.getElementById("feedback-box").classList.add("alert-danger");
+        document.getElementById("feedback").innerHTML = 'Incorrect!';
+        document.getElementById("feedback-text").innerHTML = 'Try again.';
         if (showAnswer=="true"){
-            $('#reveal').show();
+            document.getElementById("reveal").style.display = "inline";
         }
     };
 };
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
     document.getElementById("title").innerHTML=titleString;
     $('select').selectpicker();
-    $('#reveal').hide();
+    document.getElementById("reveal").style.display = "none";
     generate();
     document.getElementById("playKey").addEventListener("click", function(){
         playKey();
@@ -235,12 +235,12 @@ document.addEventListener("DOMContentLoaded", function(){
         let titleString = "Solfege Ear Training - " + currentExcersize.toString() + "/" + numberOfExcercises.toString();
         document.getElementById("title").innerHTML=titleString;
         generate();
-        $('#feedback-box').removeClass("alert-success");
-        $('#feedback-box').removeClass("alert-danger");
-        $('#feedback-box').addClass("alert-secondary");
-        $('#feedback').text("Enter your answer");
-        $('#feedback-text').text('Click "Check Answer" to continue.');
-        $('#reveal').hide();
+        document.getElementById("feedback-box").classList.remove("alert-success");
+        document.getElementById("feedback-box").classList.remove("alert-danger");
+        document.getElementById("feedback-box").classList.add("alert-secondary");
+        document.getElementById("feedback").innerHTML = 'Enter your answer';
+        document.getElementById("feedback-text").innerHTML = 'Click "Check Answer" to continue.';
+        document.getElementById("reveal").style.display = "none";
 
     });
     document.getElementById("checkAnswer").addEventListener("click", function(){
@@ -248,9 +248,9 @@ document.addEventListener("DOMContentLoaded", function(){
     
     });
     document.getElementById("reveal").addEventListener("click", function(){
-        $('#reveal').hide();
+        document.getElementById("reveal").style.display = "none";
         let message="The answer was: "+answerText;
-        $('#feedback-text').text(message)
+        document.getElementById("feedback-text").innerHTML = message;
     
     });
     document.getElementById("answer").addEventListener("keydown", function(key){
