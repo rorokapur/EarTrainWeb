@@ -1,0 +1,44 @@
+.meter-container{
+    width: 100%;
+    background-color: grey;
+    border-radius: 1rem;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.meter-value{
+    height: 0.5rem;
+    transition: width 1s;
+
+}
+.meter-red{
+    width: 0%;
+    background-color: #ff5757;
+    float:right;
+}
+.meter-green{
+    width: 0%;
+    background-color: #3f943f;
+    float: left;
+
+}
+.score-correct{
+    float: left;
+    color: #3f943f;
+}
+.score-incorrect{
+    float: right;
+    color: #ff5757;
+}
+
+.score-value{
+    padding:0.1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body{
+    margin: auto;
+}
+@media only screen and (min-aspect-ratio: 6/5){
+    body{
+        max-width: 75vw;
+    }
+}
