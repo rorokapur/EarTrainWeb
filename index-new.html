@@ -7,6 +7,37 @@
         <script src="script.js"></script>
     </head>
     <body>
+
+        <div id="note-selector">
+            
+            <div class="note-row">
+                <button class="note-button" data-note="do">Do</button>
+                <button class="note-button" data-note="re">Re</button>
+                <button class="note-button" data-note="ri-me">Ri/Me</button>    
+                <button class="note-button" data-note="di-ra">Di/Ra</button>
+            </div>
+            <div class="note-row">
+                <button class="note-button" data-note="mi">Mi</button>
+                <button class="note-button" data-note="fa">Fa</button>
+                <button class="note-button" data-note="fi-se">Fi/Se</button>
+                <button class="note-button" data-note="so">So</button>
+
+            </div>
+            <div class="note-row">
+                <button class="note-button" data-note="si-le">Si/Le</button>
+                <button class="note-button" data-note="la">La</button>
+                <button class="note-button" data-note="li-te">Li/Te</button>
+                <button class="note-button" data-note="ti">Ti</button>
+            </div>
+            <div id="note-input">
+                <div id="notes-box">
+                    <div id="notes"></div>
+                    <span id="clear-notes">clear</span>
+                </div>
+                <button>Enter</button>
+            </div>
+        </div>
+
         <div id="score">
             <div id="correctVal" class="score-correct score-value">0</div><div id="incorrectVal" class="score-incorrect score-value">0</div>
             <div id="score-meter" class="meter-container">

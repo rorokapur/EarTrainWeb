@@ -1,6 +1,6 @@
 .meter-container{
     width: 100%;
-    background-color: grey;
+    background-color: rgb(192, 192, 192);
     border-radius: 1rem;
     margin: 0 auto;
     overflow: hidden;
@@ -32,13 +32,106 @@
 
 .score-value{
     padding:0.1rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#note-selector{
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1rem;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    button{
+        border: solid 0.1rem #0077ff;
+        color: black;
+        border-radius: 0.25rem;
+        padding: 1rem;
+        cursor: pointer;
+        user-select: none;
+        margin: 0.1rem;
+        transition: background-color 0.25s, color 0.25s;
+        box-shadow: 1px 1px 2px gray;
+        text-align: center;
+        flex-basis: 0;
+        flex-grow: 1;
+        display: inline-block;
+        &:active{
+            background-color: #0077ff;
+            color: white;
+        }
+    }
+    .note-row{
+        display: flex;
+        flex-grow: 1;
+        flex-basis: 0;
+    }
+    #note-input{
+        display: flex;
+        flex-shrink: 1;
+        width: 100%;
+        margin: 0.1rem;
+        #notes-box{
+            background-color: rgb(192, 192, 192);
+            width: 75%;
+            border-radius: 0.3rem;
+            margin: 0.1rem;
+            margin-left: 0;
+            padding: 0.2rem;
+            display: flex;
+            align-items: center;
+            #notes{
+                display: flex;
+                overflow: auto;
+                scrollbar-width:none;
+                cursor: pointer;
+                user-select: none;
+                align-items: center;
+                width: 100%;
+                flex-shrink: 1;
+            }
+            #clear-notes{
+                font-size: 0.75rem;
+                padding: 0.5rem;
+                visibility: hidden;
+                cursor: pointer;
+                user-select: none;
+                color:rgb(78, 78, 78);
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+
+        }
+        button{
+            display: inline-block;
+            margin-right: 0;
+            margin-left: auto;
+            border: solid 0.1rem #0077ff;
+            border-radius: 0.25rem;
+            background-color: #0077ff;
+            width: 25%;
+            color:white;
+
+        }
+        .note{
+            padding:0.25rem;
+            vertical-align: middle;
+        }
+    }
 }
 body{
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 @media only screen and (min-aspect-ratio: 6/5){
     body{
         max-width: 75vw;
+    }
+}
+@media only screen and (max-aspect-ratio: 6/5){
+    body{
+        padding:0.5rem;
     }
 }
