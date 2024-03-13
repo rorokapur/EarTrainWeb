@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         })
     });
     document.getElementById("clear-notes").addEventListener("click", ()=>{
-        document.getElementById("notes").innerHTML="";
+        document.querySelectorAll('.note').forEach((note)=>{
+            note.style.scale = "0";
+        });
+        setTimeout(()=>{document.getElementById("notes").innerHTML="";}, 200)
         document.getElementById("clear-notes").style.visibility = "hidden";
 
 

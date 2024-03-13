@@ -41,28 +41,18 @@
     width: 95%;
     display: block;
     button{
-        border: solid 0.1rem #0077ff;
-        background-color: white;
-        color: #0077ff;
-        border-radius: 0.25rem;
-        padding: 1rem;
-        cursor: pointer;
-        user-select: none;
-        margin: 0.1rem;
-        transition: background-color 0.25s, color 0.25s;
         text-align: center;
         flex-basis: 0;
         flex-grow: 1;
         flex-shrink: 1;
         display: inline-block;
-        &:active{
-            background-color: #0077ff;
-            color: white;
-        }
+        font-size: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
     .note-row{
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
     }
 }
 #note-input{
@@ -70,24 +60,27 @@
     margin: 0.1rem;
     #notes-box{
         background-color: rgb(192, 192, 192);
-        width: 74%;
         border-radius: 0.3rem;
-        margin: 0.1rem;
-        margin-left: 0;
+        margin-top: 0.1rem;
+        margin-bottom: 0.1rem;
         padding: 0.2rem;
-        flex-grow: 0;
         display: flex;
+        width:74%;
         align-items: center;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         #notes{
             display: flex;
             overflow: auto;
             scrollbar-width:none;
+            scroll-behavior: smooth;
             cursor: default;
             user-select: none;
             align-items: center;
             width: 100%;
             div{
                 animation: 200ms ease-in-out grow;
+                transition: scale 200ms;
             }
         }
         #clear-notes{
@@ -104,11 +97,11 @@
 
     }
     button{
-        display: inline-block;
         margin-right: 0;
         margin-left: auto;
         border: solid 0.1rem #0077ff;
-        border-radius: 0.25rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
         background-color: #0077ff;
         color:white;
 
@@ -122,6 +115,37 @@ body{
     margin-left: auto;
     margin-right: auto;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+button{
+    border: solid 0.1rem #0077ff;
+    background-color: white;
+    color: #0077ff;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    cursor: pointer;
+    user-select: none;
+    margin: 0.1rem;
+    transition: background-color 0.25s, color 0.25s;
+    &:active{
+        background-color: #0077ff;
+        color: white;
+    }
+}
+#flow-controls{
+    justify-content: center;
+    display: flex;
+    svg{
+        height: 2rem;
+        width: 2rem;
+    }
+}
+#play-key{
+    border-radius: 100px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+.shrink{
+    animation: 200ms ease-in-out shrink;
 }
 @media only screen and (min-aspect-ratio: 6/5){
     body{
@@ -146,4 +170,4 @@ body{
     100% {
       transform: scale(1);
     }
-  }
+}
