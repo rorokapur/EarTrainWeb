@@ -13,11 +13,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
         })
     });
     document.getElementById("clear-notes").addEventListener("click", ()=>{
-        document.querySelectorAll('.note').forEach((note)=>{
-            note.style.scale = "0";
-        });
-        setTimeout(()=>{document.getElementById("notes").innerHTML="";}, 200)
         document.getElementById("clear-notes").style.visibility = "hidden";
+        let delay = 0;
+        Array.from(document.querySelectorAll('.note')).reverse().forEach((note)=>{
+
+            setTimeout(()=>{
+                note.style.scale = "0";
+                setTimeout(()=>{note.remove();}, 200);
+            }, delay);
+            delay += 15;
+
+        });
 
 
     });
