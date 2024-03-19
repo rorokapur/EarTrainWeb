@@ -35,7 +35,7 @@ class Exercise{
     answer;
     key;
     audio;
-    constructor(notes, chromatics, key = Math.floor(Math.random() * 12)){
+    constructor(notes, chromatics, key = (Math.floor(Math.random() * 12) + 1)){
         this.key = key;
         let d = Solfege.diatonic.getRandomSubarray(notes - chromatics);
         let c = Solfege.chromatic.getRandomSubarray(chromatics);
@@ -51,7 +51,7 @@ class Exercise{
         this.answer = [];
         tempChord.forEach((note, index) => {
             this.answer.push(Solfege.solfege[note]);
-            tempChord[index]+=key;
+            tempChord[index]+=key - 1;
         });
         this.chord = [...tempChord];
         this.audio = new Sound(this.chord, "assets/notes/", this.key, "assets/keys/", "wav");
