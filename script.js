@@ -31,7 +31,47 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })
 
 
+class EarTraining{
+    notes = 3;
+    chromatics = 0;
+    key = 1;
+    multipleTries = true;
+    randomKey = true;
+    input;
+    exercise;
+    controls;
+    constructor(controls, input){
+        this.input = input;
+        this.input.querySelector('#enter').addEventListener('click',this.submit());
+        this.controls = controls;
+        this.controls.querySelector('#play-chord').addEventListener('click', this.playChord());
+        this.controls.querySelector('#play-key').addEventListener('click', this.playKey());
+        if (this.randomKey){
+            this.exercise = new Exercise(this.notes, this.chromatics);
+        } else {
+            this.exercise = new Exercise(this.notes, this.chromatics, this.key);
+        }
+    }
+    playKey(){
+        this.exercise.playKey();
+    }
+    playChord(){
+        this.exercise.playChord();
+    }
+    submit(){
+        let answer = [];
+        this.input.querySelectorAll('.note').forEach((el)=>{
+            answer.push(el.dataset.note);
+        })
+        this.exercise.checkAnswer(answer);
+    }
+    newChord(){
 
+    }
+    clearInput(){
+
+    }
+}
 
 class ScoreBar{
     leftText;
@@ -109,13 +149,6 @@ Array.prototype.getRandomSubarray = function(size){
         shuffled[i] = temp;
     }
     return shuffled.slice(min);
-}
-class Settings{
-    static notes = 3;
-    static chromatics = 0;
-    static key = 1;
-    static multipleTries = true;
-    static randomKey = true;
 }
 class Solfege{
     static get diatonic() {
