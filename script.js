@@ -1,36 +1,40 @@
 let score;
 document.addEventListener('DOMContentLoaded', ()=>{
-    document.querySelectorAll(".note-button").forEach((button)=>{
-        button.addEventListener("click", ()=>{
-            document.getElementById("clear-notes").style.visibility = "visible";
-            let el = document.createElement('div');
-            el.innerText = button.innerText;
-            el.classList.add("note");
-            el.setAttribute("data-note", button.getAttribute("data-note"));
-            document.getElementById("notes").append(el);
-            document.getElementById("notes").scrollBy(100,0);
-            
-        })
-    });
-    document.getElementById("clear-notes").addEventListener("click", ()=>{
-        document.getElementById("clear-notes").style.visibility = "hidden";
-        let delay = 0;
-        Array.from(document.querySelectorAll('.note')).reverse().forEach((note)=>{
-
-            setTimeout(()=>{
-                note.style.scale = "0";
-                setTimeout(()=>{note.remove();}, 200);
-            }, delay);
-            delay += 15;
-
-        });
-
-
-    });
     score = new ScoreBar(document.getElementById("correctVal"),document.getElementById("incorrectVal"),document.getElementById("meter-green"),document.getElementById("meter-red"));
 })
 
-
+class Controls{
+    static init(){
+        document.querySelectorAll(".note-button").forEach((button)=>{
+            button.addEventListener("click", ()=>{
+                document.getElementById("clear-notes").style.visibility = "visible";
+                let el = document.createElement('div');
+                el.innerText = button.innerText;
+                el.classList.add("note");
+                el.setAttribute("data-note", button.getAttribute("data-note"));
+                document.getElementById("notes").append(el);
+                document.getElementById("notes").scrollBy(100,0);
+                
+            })
+        });
+        document.getElementById("clear-notes").addEventListener("click", ()=>{
+            document.getElementById("clear-notes").style.visibility = "hidden";
+            let delay = 0;
+            Array.from(document.querySelectorAll('.note')).reverse().forEach((note)=>{
+    
+                setTimeout(()=>{
+                    note.style.scale = "0";
+                    setTimeout(()=>{note.remove();}, 200);
+                }, delay);
+                delay += 15;
+    
+            });
+    
+    
+        });
+        return;
+    }
+}
 class EarTraining{
     notes = 3;
     chromatics = 0;
@@ -42,7 +46,7 @@ class EarTraining{
     controls;
     constructor(controls, input){
         this.input = input;
-        this.input.querySelector('#enter').addEventListener('click',this.submit());
+        this.input.querySelector('#enter').addEventListener('click',this.checkAnswer());
         this.controls = controls;
         this.controls.querySelector('#play-chord').addEventListener('click', this.playChord());
         this.controls.querySelector('#play-key').addEventListener('click', this.playKey());
@@ -58,12 +62,14 @@ class EarTraining{
     playChord(){
         this.exercise.playChord();
     }
-    submit(){
+    checkAnswer(){
         let answer = [];
-        this.input.querySelectorAll('.note').forEach((el)=>{
+        document.querySelectorAll('.note').forEach((el)=>{
             answer.push(el.dataset.note);
         })
-        this.exercise.checkAnswer(answer);
+        if(this.exercise.checkAnswer(answer)){
+
+        }
     }
     newChord(){
 
