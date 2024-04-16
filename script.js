@@ -1,5 +1,6 @@
 let score;
 document.addEventListener('DOMContentLoaded', ()=>{
+    Controls.init();
     score = new ScoreBar(document.getElementById("correctVal"),document.getElementById("incorrectVal"),document.getElementById("meter-green"),document.getElementById("meter-red"));
 })
 
@@ -39,17 +40,20 @@ class EarTraining{
     notes = 3;
     chromatics = 0;
     key = 1;
-    multipleTries = true;
     randomKey = true;
     input;
     exercise;
     controls;
-    constructor(controls, input){
+    correct;
+    incorrect;
+    listens;
+    constructor(controls, input, score){
         this.input = input;
         this.input.querySelector('#enter').addEventListener('click',this.checkAnswer());
         this.controls = controls;
         this.controls.querySelector('#play-chord').addEventListener('click', this.playChord());
         this.controls.querySelector('#play-key').addEventListener('click', this.playKey());
+        this.score = score;
         if (this.randomKey){
             this.exercise = new Exercise(this.notes, this.chromatics);
         } else {
@@ -61,6 +65,7 @@ class EarTraining{
     }
     playChord(){
         this.exercise.playChord();
+        this.listens++;
     }
     checkAnswer(){
         let answer = [];
@@ -68,13 +73,14 @@ class EarTraining{
             answer.push(el.dataset.note);
         })
         if(this.exercise.checkAnswer(answer)){
-
+            this.score.increaseLeft();
+            this.correct++;
+        } else {
+            this.score.increaseRight();
+            this.incorrect++;
         }
     }
     newChord(){
-
-    }
-    clearInput(){
 
     }
 }

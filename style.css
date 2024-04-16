@@ -37,9 +37,10 @@
 #note-selector{
     margin-right: auto;
     margin-left: auto;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     width: 95%;
     display: block;
+    padding-top: 0.5rem;
     button{
         text-align: center;
         flex-basis: 0;
@@ -145,17 +146,33 @@ button{
     }
 }
 #flow-controls{
-    justify-content: center;
     display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    width: 95%;
+    padding-bottom: 0.5rem;
+    button{
+        padding: 1rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        font-size: 1.5rem;
+        width: 50%;
+        &:active{
+            svg{
+                fill: white;
+            }
+        }
+        span{
+            vertical-align: middle;
+        }
+    }
     svg{
         height: 2rem;
         width: 2rem;
+        fill: #0077ff; 
+        transition: fill 0.25s;
+        vertical-align: middle;
     }
-}
-#play-key{
-    border-radius: 100px;
-    aspect-ratio: 1/1;
-    overflow: hidden;
 }
 .shrink{
     animation: 200ms ease-in-out shrink;
@@ -164,7 +181,7 @@ button{
     body{
         max-width: 60vw;
     }
-    #note-selector{
+    #note-selector, #flow-controls{
         max-width: 75%;
     }
 }
