@@ -33,7 +33,11 @@
 .score-value{
     padding:0.1rem;
 }
-
+body{
+    height: 95vh;
+    display: flex;
+    flex-flow: column;
+}
 #note-selector{
     margin-right: auto;
     margin-left: auto;
@@ -41,6 +45,7 @@
     width: 95%;
     display: block;
     padding-top: 0.5rem;
+    flex: 0 1 auto;
     button{
         text-align: center;
         flex-basis: 0;
@@ -145,6 +150,14 @@ button{
         color: white;
     }
 }
+#info{
+    background-color: rgb(192, 192, 192);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.25rem;
+    flex: 1 1 auto;
+    width: 95%;
+}
 #flow-controls{
     display: flex;
     margin-right: auto;
@@ -181,7 +194,7 @@ button{
     body{
         max-width: 60vw;
     }
-    #note-selector, #flow-controls{
+    #note-selector, #flow-controls, #info{
         max-width: 75%;
     }
 }
