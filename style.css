@@ -1,3 +1,21 @@
+:root{
+    --bg-color: white;
+    --field-bg-color: rgb(192, 192, 192);
+    --dim-text: rgb(78, 78, 78);
+    --primary-text-color: black;
+    --btn-txt-color: #0077ff;
+    --btn-border: solid 0.1rem #0077ff;
+}
+[data-theme="dark"]{
+    --bg-color: #212121;
+    --field-bg-color: rgb(54, 54, 54);
+    --btn-bg-color: rgb(0, 0, 0);
+    --dim-text: rgb(119, 119, 119);
+    --primary-text-color: white;
+    --btn-txt-color: white;
+    --btn-border: none;
+}
+
 .meter-container{
     width: 100%;
     background-color: rgb(192, 192, 192);
@@ -33,10 +51,26 @@
 .score-value{
     padding:0.1rem;
 }
+.hidden{
+    display: none;
+}
 body{
     height: 95vh;
     display: flex;
     flex-flow: column;
+    background-color: var(--bg-color);
+}
+#toolbar{
+    width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: right;
+    svg{
+        padding: 0.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: var(--primary-text-color);
+    }
 }
 #note-selector{
     margin-right: auto;
@@ -65,8 +99,8 @@ body{
     display: flex;
     margin: 0.1rem;
     #notes-box{
-        background-color: rgb(192, 192, 192);
-        border-radius: 0.3rem;
+        background-color: var(--field-bg-color);
+        border-radius: 0.25rem;
         margin-top: 0.1rem;
         margin-bottom: 0.1rem;
         padding: 0.2rem;
@@ -84,7 +118,7 @@ body{
             content: "";
             z-index: 1;
             background: linear-gradient(to right,
-            rgb(192, 192, 192) 10%, 
+            var(--field-bg-color) 10%, 
             rgba(255,255,255, 0) 100%);
         }
         #notes{
@@ -108,7 +142,7 @@ body{
             visibility: hidden;
             cursor: pointer;
             user-select: none;
-            color:rgb(78, 78, 78);
+            color:var(--dim-text);
             &:hover{
                 text-decoration: underline;
             }
@@ -128,6 +162,7 @@ body{
     .note{
         padding:0.25rem;
         vertical-align: middle;
+        color: var(--primary-text-color);
     }
 }
 body{
@@ -136,9 +171,9 @@ body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 button{
-    border: solid 0.1rem #0077ff;
-    background-color: white;
-    color: #0077ff;
+    border: var(--btn-border);
+    background-color: var(--btn-bg-color);
+    color: var(--btn-txt-color);
     border-radius: 0.25rem;
     padding: 1rem;
     cursor: pointer;
@@ -151,7 +186,7 @@ button{
     }
 }
 #info{
-    background-color: rgb(192, 192, 192);
+    background-color: var(--field-bg-color);
     margin-left: auto;
     margin-right: auto;
     border-radius: 0.25rem;
@@ -164,6 +199,12 @@ button{
     margin-left: auto;
     width: 95%;
     padding-bottom: 0.5rem;
+    #play-key{
+        margin-left: 0;
+    }
+    #play-chord{
+        margin-right: 0;
+    }
     button{
         padding: 1rem;
         padding-top: 2rem;
@@ -194,8 +235,8 @@ button{
     body{
         max-width: 60vw;
     }
-    #note-selector, #flow-controls, #info{
-        max-width: 75%;
+    #note-selector, #flow-controls, #info, #toolbar{
+        width: 75%;
     }
 }
 @media only screen and (max-aspect-ratio: 6/5){

@@ -1,6 +1,7 @@
 let score;
 document.addEventListener('DOMContentLoaded', ()=>{
     Controls.init();
+    //document.documentElement.setAttribute('data-theme', 'dark');
     score = new ScoreBar(document.getElementById("correctVal"),document.getElementById("incorrectVal"),document.getElementById("meter-green"),document.getElementById("meter-red"));
 })
 class DarkMode{
