@@ -1,17 +1,18 @@
 let score;
 document.addEventListener('DOMContentLoaded', ()=>{
     Controls.init();
-    //document.documentElement.setAttribute('data-theme', 'dark');
     score = new ScoreBar(document.getElementById("correctVal"),document.getElementById("incorrectVal"),document.getElementById("meter-green"),document.getElementById("meter-red"));
 })
 class DarkMode{
     static dark(){
         document.getElementById("light-mode-toggle").classList.add("hidden");
         document.getElementById("dark-mode-toggle").classList.remove("hidden");
+        document.documentElement.setAttribute('data-theme', 'dark');
     }
     static light(){
         document.getElementById("dark-mode-toggle").classList.add("hidden");
         document.getElementById("light-mode-toggle").classList.remove("hidden");
+        document.documentElement.setAttribute('data-theme', 'light');
     }
 }
 class Controls{

@@ -3,22 +3,26 @@
     --field-bg-color: rgb(192, 192, 192);
     --dim-text: rgb(78, 78, 78);
     --primary-text-color: black;
+    --inverse-color:white;
     --btn-txt-color: #0077ff;
     --btn-border: solid 0.1rem #0077ff;
 }
 [data-theme="dark"]{
     --bg-color: #212121;
     --field-bg-color: rgb(54, 54, 54);
-    --btn-bg-color: rgb(0, 0, 0);
+    --btn-bg-color: rgb(54, 54, 54);
     --dim-text: rgb(119, 119, 119);
     --primary-text-color: white;
+    --inverse-color: black;
     --btn-txt-color: white;
-    --btn-border: none;
+    --btn-border: solid 0.1rem #212121;
 }
-
+* {
+    transition: background-color 0.25s, color 0.25s, fill 0.25s;
+}
 .meter-container{
     width: 100%;
-    background-color: rgb(192, 192, 192);
+    background-color: var(--field-bg-color);
     border-radius: 1rem;
     margin: 0 auto;
     overflow: hidden;
@@ -111,17 +115,8 @@ body{
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         overflow: hidden;
-        &:before{
-            position: absolute;
-            height: 100%;
-            width: 2%;
-            content: "";
-            z-index: 1;
-            background: linear-gradient(to right,
-            var(--field-bg-color) 10%, 
-            rgba(255,255,255, 0) 100%);
-        }
         #notes{
+            mask: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 2%);
             display: flex;
             overflow: auto;
             scrollbar-width:none;
@@ -152,11 +147,18 @@ body{
     button{
         margin-right: 0;
         margin-left: auto;
-        border: solid 0.1rem #0077ff;
+        border: none;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         background-color: #0077ff;
         color:white;
+        &:active{
+            svg{
+                fill: var(--btn-txt-color);
+            }
+            color:var(--btn-txt-color);
+            background-color: var(--field-bg-color);
+        }
 
     }
     .note{
@@ -211,10 +213,17 @@ button{
         padding-bottom: 2rem;
         font-size: 1.5rem;
         width: 50%;
+        background-color: #0077ff;
+        color: white;
+        svg{
+            fill: white;
+        }
         &:active{
             svg{
-                fill: white;
+                fill: var(--btn-txt-color);
             }
+            color:var(--btn-txt-color);
+            background-color: var(--btn-bg-color);
         }
         span{
             vertical-align: middle;
