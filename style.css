@@ -7,7 +7,16 @@
     --btn-txt-color: #0077ff;
     --btn-border: solid 0.1rem #0077ff;
 }
-[data-theme="dark"]{
+html, html[data-theme="light"]{
+    --bg-color: white;
+    --field-bg-color: rgb(192, 192, 192);
+    --dim-text: rgb(78, 78, 78);
+    --primary-text-color: black;
+    --inverse-color:white;
+    --btn-txt-color: #0077ff;
+    --btn-border: solid 0.1rem #0077ff;
+}
+html[data-theme="dark"]{
     --bg-color: #212121;
     --field-bg-color: rgb(54, 54, 54);
     --btn-bg-color: rgb(54, 54, 54);
@@ -18,7 +27,7 @@
     --btn-border: solid 0.1rem #212121;
 }
 * {
-    transition: background-color 0.25s, color 0.25s, fill 0.25s;
+    transition: background-color 0.25s, border 0.25s, color 0.25s, fill 0.25s;
 }
 .meter-container{
     width: 100%;
@@ -56,7 +65,8 @@
     padding:0.1rem;
 }
 .hidden{
-    display: none;
+    position: absolute;
+    visibility: hidden;
 }
 body{
     height: 95vh;
@@ -253,6 +263,31 @@ button{
         padding:0.5rem;
     }
 }
+#dark-mode-toggle{
+    visibility: hidden;
+    position: absolute;
+}
+@media (prefers-color-scheme: dark){
+    html:not([data-theme]){
+        --bg-color: #212121;
+        --field-bg-color: rgb(54, 54, 54);
+        --btn-bg-color: rgb(54, 54, 54);
+        --dim-text: rgb(119, 119, 119);
+        --primary-text-color: white;
+        --inverse-color: black;
+        --btn-txt-color: white;
+        --btn-border: solid 0.1rem #212121;
+    }
+    #light-mode-toggle{
+        visibility: hidden;
+        position: absolute;
+    }
+    #dark-mode-toggle{
+        visibility: visible;
+        position: relative;
+    }
+}
+
 @keyframes grow {
     0%{
         transform: scale(0);

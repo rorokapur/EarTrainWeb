@@ -5,13 +5,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })
 class DarkMode{
     static dark(){
-        document.getElementById("light-mode-toggle").classList.add("hidden");
-        document.getElementById("dark-mode-toggle").classList.remove("hidden");
+        document.getElementById("dark-mode-toggle").style.visibility = "visible";
+        document.getElementById("dark-mode-toggle").style.position = "relative";
+        document.getElementById("light-mode-toggle").style.visibility = "hidden";
+        document.getElementById("light-mode-toggle").style.position = "absolute";
         document.documentElement.setAttribute('data-theme', 'dark');
     }
     static light(){
-        document.getElementById("dark-mode-toggle").classList.add("hidden");
-        document.getElementById("light-mode-toggle").classList.remove("hidden");
+        document.getElementById("light-mode-toggle").style.visibility = "visible";
+        document.getElementById("light-mode-toggle").style.position = "relative";
+        document.getElementById("dark-mode-toggle").style.visibility = "hidden";
+        document.getElementById("dark-mode-toggle").style.position = "absolute";
         document.documentElement.setAttribute('data-theme', 'light');
     }
 }
