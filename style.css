@@ -187,6 +187,7 @@ body{
 body{
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 button{
