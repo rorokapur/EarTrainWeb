@@ -75,16 +75,23 @@ body{
     background-color: var(--bg-color);
 }
 #toolbar{
-    width: 95%;
-    margin: auto;
     display: flex;
     justify-content: right;
+    margin-top: auto;
+    margin-bottom: auto;
     svg{
         padding: 0.5rem;
         width: 1.5rem;
         height: 1.5rem;
         fill: var(--primary-text-color);
     }
+}
+#header{
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+    width: 95%;
+    color: var(--primary-text-color);
 }
 #note-selector{
     margin-right: auto;
@@ -254,7 +261,7 @@ button{
     body{
         max-width: 60vw;
     }
-    #note-selector, #flow-controls, #info, #toolbar{
+    #note-selector, #flow-controls, #info, #header{
         width: 75%;
     }
 }
