@@ -48,6 +48,26 @@ class Controls{
     
     
         });
+        document.querySelectorAll(".menu-button").forEach((button)=>{
+            let id = button.dataset.menu;
+            document.querySelectorAll(".menu").forEach((menu)=>{
+                if (menu.dataset.menu == id){
+                    button.addEventListener("click",()=>{
+                        menu.style.display="block";
+                        setTimeout(()=>{menu.style.opacity="1";}, 0);
+                        document.querySelector(':root').style.setProperty('--body-blur', "blur(0.2rem)")
+                    })
+                }
+            })
+        });
+        document.querySelectorAll(".menu-close").forEach((button)=>{
+            let parent = button.parentElement;
+            button.addEventListener("click",()=>{
+                parent.style.opacity="0";
+                setTimeout(()=>{parent.style.display="none";}, 250);
+                document.querySelector(':root').style.setProperty('--body-blur', "")
+            })
+        });
         return;
     }
 }
