@@ -323,18 +323,18 @@ button{
     }
 }
 .menu{
-    position: absolute;
+    position: fixed;
     display: none;
     opacity: 0;
     background-color: var(--menu-bg-color);
-    margin: auto;
     align-self: center;
     padding: 2rem;
     border-radius: 0.25rem;
     margin: 1rem;
-    max-height: 88vh;
+    max-height: 75vh;
     color: var(--primary-text-color);
     transition: opacity 0.25s;
+    overflow: clip;
     .menu-close{
         position: absolute;
         top: 0.5rem;
@@ -346,8 +346,6 @@ button{
 }
 .menu-content{
     mask: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 3%, rgba(0,0,0,1) 97%, rgba(0,0,0,0) 100%);
-    position: relative;
-    top: 0;
     width: 100%;
     overflow-y: auto;
     scrollbar-gutter: auto;
