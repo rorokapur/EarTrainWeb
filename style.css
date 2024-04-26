@@ -33,6 +33,9 @@ html[data-theme="dark"]{
 * {
     transition: background-color 0.25s, border 0.25s, color 0.25s, fill 0.25s, filter 0.25s;
 }
+#score{
+    margin-bottom: 1rem;
+}
 .meter-container{
     width: 100%;
     background-color: var(--field-bg-color);
@@ -73,10 +76,11 @@ html[data-theme="dark"]{
     visibility: hidden;
 }
 body{
-    height: 95dvh;
+    height: 100dvh;
     display: flex;
     flex-flow: column;
     background-color: var(--bg-color);
+    margin-bottom: 0;
 }
 #toolbar{
     display: flex;
