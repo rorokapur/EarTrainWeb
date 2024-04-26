@@ -28,7 +28,7 @@ html[data-theme="dark"]{
     --primary-text-color: white;
     --inverse-color: black;
     --btn-txt-color: white;
-    --btn-border: solid 0.1rem #212121;
+    --btn-border: solid 0.1rem rgb(54, 54, 54);
 }
 * {
     transition: background-color 0.25s, border 0.25s, color 0.25s, fill 0.25s, filter 0.25s;
@@ -92,50 +92,86 @@ body{
 }
 #header{
     display: flex;
+    flex-wrap: wrap;
     margin: auto;
     justify-content: space-between;
-    width: 95%;
+    width: 100%;
     color: var(--primary-text-color);
+    h4{
+        flex: 1 1 0;
+        text-wrap: wrap;
+    }
 }
 #note-selector{
     margin-right: auto;
     margin-left: auto;
     padding-bottom: 1rem;
-    width: 95%;
-    display: block;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: max-content max-content max-content max-content;
     padding-top: 0.5rem;
-    flex: 0 1 auto;
     button{
         text-align: center;
         flex-basis: 0;
         flex-grow: 1;
         flex-shrink: 1;
-        display: inline-block;
+        display: block;
+        padding-top: 5%;
+        padding-bottom: 5%;
         font-size: 1rem;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #enter{
+        grid-column: 4;
+        grid-row: 1;
+        background-color: #0077ff;
+        color:white;
+        display: block;
+        border: solid 0.1rem #0077ff;
+        padding-top: 20%;
+        padding-bottom: 20%;
+        font-size: 1rem;
+        &:active{
+            svg{
+                fill: var(--btn-txt-color);
+            }
+            color:var(--btn-txt-color);
+            background-color: var(--btn-bg-color);
+            border: var(--btn-border);
+        }
+    
     }
     .note-row{
         display: flex;
         flex-wrap: wrap;
     }
-}
-#note-input{
-    display: flex;
-    margin: 0.1rem;
+    #note-row-1{
+        grid-row:2;
+        grid-column: 1/5;
+    }
+    #note-row-2{
+        grid-row:3;
+        grid-column: 1/5;
+    }
+    #note-row-3{
+        grid-row:4;
+        grid-column: 1/5;
+    }
     #notes-box{
+        grid-column: 1 / 4;
+        grid-row: 1;
         background-color: var(--field-bg-color);
         border-radius: 0.25rem;
-        margin-top: 0.1rem;
-        margin-bottom: 0.1rem;
-        padding: 0.2rem;
-        display: inline-flex;
-        width:74%;
+        padding: 0;
+        display: flex;
         align-items: center;
-        position: relative;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
         overflow: hidden;
+        flex: 3 0 0;
+        margin: 0.15rem;
         #notes{
             mask: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 2%);
             display: flex;
@@ -163,24 +199,6 @@ body{
                 text-decoration: underline;
             }
         }
-
-    }
-    button{
-        margin-right: 0;
-        margin-left: auto;
-        border: none;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        background-color: #0077ff;
-        color:white;
-        &:active{
-            svg{
-                fill: var(--btn-txt-color);
-            }
-            color:var(--btn-txt-color);
-            background-color: var(--field-bg-color);
-        }
-
     }
     .note{
         padding:0.25rem;
@@ -189,6 +207,8 @@ body{
     }
 }
 body{
+    padding-left: 2.5%;
+    padding-right: 2.5%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
@@ -202,10 +222,11 @@ button{
     padding: 1rem;
     cursor: pointer;
     user-select: none;
-    margin: 0.1rem;
-    transition: background-color 0.25s, color 0.25s;
+    margin: 0.15rem;
+    transition: background-color 0.25s, color 0.25s, border 0.25s;
     &:active{
         background-color: #0077ff;
+        border: solid 0.1rem #0077ff;
         color: white;
     }
 }
@@ -215,14 +236,14 @@ button{
     margin-right: auto;
     border-radius: 0.25rem;
     flex: 1 1 auto;
-    width: 95%;
+    width: 100%;
     transition: background-color 0.25s;
 }
 #flow-controls{
     display: flex;
     margin-right: auto;
     margin-left: auto;
-    width: 95%;
+    width: 100%;
     padding-bottom: 0.5rem;
     #play-key{
         margin-left: 0;
@@ -231,12 +252,12 @@ button{
         margin-right: 0;
     }
     button{
-        padding: 1rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        font-size: 1.5rem;
+        font-size: 1rem;
+        padding-top: 5%;
+        padding-bottom: 5%;
         width: 50%;
         background-color: #0077ff;
+        border: solid 0.1rem #0077ff;
         color: white;
         svg{
             fill: white;
@@ -247,6 +268,7 @@ button{
             }
             color:var(--btn-txt-color);
             background-color: var(--btn-bg-color);
+            border: var(--btn-border);
         }
         span{
             vertical-align: middle;
@@ -263,22 +285,18 @@ button{
 .shrink{
     animation: 200ms ease-in-out shrink;
 }
-@media only screen and (min-aspect-ratio: 6/5){
+@media only screen and (min-aspect-ratio: 3/4){
     body{
-        max-width: 60vw;
+        aspect-ratio: 3/4;
     }
     .menu{
-        max-width: 45vw;
+        aspect-ratio: 3/4;
     }
     #note-selector, #flow-controls, #info, #header{
-        width: 75%;
     }
 }
-@media only screen and (max-aspect-ratio: 6/5){
-    #score{
-        width: 95%;
-        margin: auto;
-    }
+@media only screen and (max-aspect-ratio: 3/4){
+    
 }
 #dark-mode-toggle{
     visibility: hidden;
@@ -293,7 +311,7 @@ button{
         --primary-text-color: white;
         --inverse-color: black;
         --btn-txt-color: white;
-        --btn-border: solid 0.1rem #212121;
+        --btn-border: solid 0.1rem rgb(54, 54, 54);
         --menu-bg-color: #292929;
     }
     #light-mode-toggle{
