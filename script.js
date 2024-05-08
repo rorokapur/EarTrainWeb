@@ -1,4 +1,5 @@
 let score;
+let et;
 document.addEventListener('DOMContentLoaded', ()=>{
     Controls.init();
     et = new EarTraining();
@@ -67,6 +68,24 @@ class Controls{
                 setTimeout(()=>{parent.style.display="none";}, 250);
                 document.querySelector(':root').style.setProperty('--body-blur', "")
             })
+        });
+        document.getElementById("settings-notes").addEventListener("input", (event)=>{
+            if(document.getElementById("settings-notes").value < document.getElementById("settings-chromatics").value){
+                document.getElementById("settings-chromatics").value = document.getElementById("settings-notes").value;
+            };
+            if (document.getElementById("settings-notes").value < 6){
+                document.getElementById("settings-chromatics").max = document.getElementById("settings-notes").value;
+            }
+            document.getElementById("notes-value").innerText = document.getElementById("settings-notes").value;
+            document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
+            et.notes = document.getElementById("settings-notes").value;
+            et.newChord();
+
+        });
+        document.getElementById("settings-chromatics").addEventListener("input", (event)=>{
+            document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
+            et.chromatics = document.getElementById("settings-chromatics").value;
+            et.newChord();
         });
         return;
     }

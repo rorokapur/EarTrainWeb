@@ -403,6 +403,8 @@ button{
     .setting{
         grid-column: 3;
         margin: auto;
+        display: flex;
+        gap: 1rem;
     }
     h4{
         grid-column: 1;
