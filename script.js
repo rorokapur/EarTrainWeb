@@ -55,6 +55,7 @@ class Controls{
                 if (menu.dataset.menu == id){
                     button.addEventListener("click",()=>{
                         menu.style.display="block";
+                        menu.style.opacity="0"
                         setTimeout(()=>{menu.style.opacity="1";}, 0);
                         document.querySelector(':root').style.setProperty('--body-blur', "blur(0.2rem)")
                     })
@@ -102,6 +103,7 @@ class EarTraining{
     incorrect;
     keylistens;
     notelistens;
+    attempts;
     constructor(){
         this.newChord();
         this.score = new ScoreBar(document.getElementById("correctVal"),document.getElementById("incorrectVal"),document.getElementById("meter-green"),document.getElementById("meter-red"));
@@ -145,6 +147,7 @@ class EarTraining{
     }
     checkAnswer(){
         if(this.notelistens == 0){return;}
+        this.attempts++;
         let answer = [];
         document.querySelectorAll('.note').forEach((el)=>{
             answer.push(el.dataset.note);
@@ -169,17 +172,29 @@ class EarTraining{
             document.querySelector('#littletext').innerText = "Play the new key or notes to continue";
             this.newChord();
         } else {
-            this.score.increaseRight();
-            this.incorrect++;
-            document.querySelector('#infobox').classList.remove("incorrect");
+            if(answer.length == 0 && this.attempts > 1){
+                document.querySelector('#infobox').classList.remove("correct");
+                document.querySelector('#infobox').classList.add("incorrect");
+                document.querySelector('#bigtext').innerText = "You gave up!";
+                document.querySelector('#littletext').innerText = "The answer was " + this.exercise.answer.join(" ");
+                this.newChord();
+                return;
+
+            }
+            if(this.attempts == 1){
+                this.score.increaseRight();
+                this.incorrect++;
+            }
+            document.querySelector('#infobox').classList.remove("correct");
             document.querySelector('#infobox').classList.add("incorrect");
             document.querySelector('#bigtext').innerText = "Incorrect!";
-            document.querySelector('#littletext').innerText = "Give it another listen any try again";
+            document.querySelector('#littletext').innerText = "Give it another listen any try again or submit a blank answer to give up.";
         }
     }
     newChord(){
         this.keylistens = 0;
         this.notelistens = 0;
+        this.attempts = 0;
         if (this.randomKey){
             this.exercise = new Exercise(this.notes, this.chromatics);
         } else {
