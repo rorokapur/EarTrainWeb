@@ -76,16 +76,20 @@ class Controls{
             };
             if (document.getElementById("settings-notes").value < 6){
                 document.getElementById("settings-chromatics").max = document.getElementById("settings-notes").value;
+                et.chromatics = document.getElementById("settings-chromatics").value;
             }
             document.getElementById("notes-value").innerText = document.getElementById("settings-notes").value;
             document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
             et.notes = document.getElementById("settings-notes").value;
+            localStorage.setItem("notes_preference", et.notes);
+            localStorage.setItem("chromatics_preference", et.chromatics);
             et.newChord();
 
         });
         document.getElementById("settings-chromatics").addEventListener("input", (event)=>{
             document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
             et.chromatics = document.getElementById("settings-chromatics").value;
+            localStorage.setItem("chromatics_preference", et.chromatics);
             et.newChord();
         });
         return;
@@ -99,8 +103,8 @@ class EarTraining{
     input;
     exercise;
     controls;
-    correct;
-    incorrect;
+    correct = 0;
+    incorrect = 0;
     keylistens;
     notelistens;
     attempts;
@@ -112,6 +116,37 @@ class EarTraining{
         this.controls = document.querySelector('#flow-controls');
         document.getElementById('play-chord').addEventListener('click', ()=>{this.playChord()});
         document.getElementById('play-key').addEventListener('click', ()=>{this.playKey()});
+        if (localStorage.getItem("correct_answers") != null){
+            this.correct = localStorage.getItem("correct_answers");
+        } else {
+            localStorage.setItem("correct_answers", 0);
+        }
+        if (localStorage.getItem("incorrect_answers") != null){
+            this.incorrect = localStorage.getItem("incorrect_answers");
+        } else {
+            localStorage.setItem("incorrect_answers", 0);
+        }
+        if (localStorage.getItem("notes_preference") != null){
+            this.notes = localStorage.getItem("notes_preference");
+        } else {
+            localStorage.setItem("notes_preference", this.notes);
+        }
+        document.getElementById("settings-notes").value = this.notes;   
+        document.getElementById("notes-value").innerText = document.getElementById("settings-notes").value;
+        if (localStorage.getItem("chromatics_preference") != null){
+            this.chromatics = localStorage.getItem("chromatics_preference");
+        } else {
+            localStorage.setItem("chromatics_preference", this.chromatics);
+        }
+        if(this.chromatics > this.notes){this.chromatics = this.notes;}
+        localStorage.setItem("chromatics_preference", this.chromatics);
+        document.getElementById("settings-chromatics").value = this.chromatics;   
+        document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
+        if (document.getElementById("settings-notes").value < 6){
+            document.getElementById("settings-chromatics").max = document.getElementById("settings-notes").value;
+            this.chromatics = document.getElementById("settings-chromatics").value;
+        }
+        
     }
     playKey(){
         this.keylistens++
