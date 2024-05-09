@@ -146,6 +146,7 @@ class EarTraining{
             document.getElementById("settings-chromatics").max = document.getElementById("settings-notes").value;
             this.chromatics = document.getElementById("settings-chromatics").value;
         }
+        this.newChord();
         
     }
     playKey(){
