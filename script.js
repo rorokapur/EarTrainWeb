@@ -96,7 +96,7 @@ class Controls{
     }
 }
 class EarTraining{
-    notes = 3;
+    notes = 1;
     chromatics = 0;
     key = 1;
     randomKey = true;
@@ -212,7 +212,7 @@ class EarTraining{
                 document.querySelector('#infobox').classList.remove("correct");
                 document.querySelector('#infobox').classList.add("incorrect");
                 document.querySelector('#bigtext').innerText = "You gave up!";
-                document.querySelector('#littletext').innerText = "The answer was " + this.exercise.answer.join(" ");
+                document.querySelector('#littletext').innerText = "The answer was " + this.exercise.answer.join(" ") + ".\nPlay the next key or notes to continue.";
                 this.newChord();
                 return;
 
