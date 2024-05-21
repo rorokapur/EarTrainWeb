@@ -1,12 +1,323 @@
-diatonic = [1,3,5,6,8,10,12];
-chromatic = [2,4,7,9,11];
-let chord = [];
-let answer = [];
-let answerText = "";
-let keyModifier = 0;
-solfege = ["ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do","ra","re","me","mi","fa","fi","so","le","la","te","ti","do"];
-function getRandomSubarray(arr, size) {
-    let shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+let score;
+let et;
+document.addEventListener('DOMContentLoaded', ()=>{
+    Controls.init();
+    et = new EarTraining();
+    // temporary UI change message.
+    document.getElementById("ui-message-close").addEventListener("click",()=>{
+        localStorage.setItem("ui-message-dismissed", 1);
+    });
+    if(localStorage.getItem("ui-message-dismissed") != 1){
+        document.getElementById("new-ui-message").style.display="block";
+        document.getElementById("new-ui-message").style.opacity="0"
+        setTimeout(()=>{document.getElementById("new-ui-message").style.opacity="1";}, 0);
+        document.querySelector(':root').style.setProperty('--body-blur', "blur(0.2rem)")
+    }
+})
+class DarkMode{
+    static dark(){
+        document.getElementById("dark-mode-toggle").style.visibility = "visible";
+        document.getElementById("dark-mode-toggle").style.position = "relative";
+        document.getElementById("light-mode-toggle").style.visibility = "hidden";
+        document.getElementById("light-mode-toggle").style.position = "absolute";
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    static light(){
+        document.getElementById("light-mode-toggle").style.visibility = "visible";
+        document.getElementById("light-mode-toggle").style.position = "relative";
+        document.getElementById("dark-mode-toggle").style.visibility = "hidden";
+        document.getElementById("dark-mode-toggle").style.position = "absolute";
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+}
+class Controls{
+    static init(){
+        document.querySelectorAll(".note-button").forEach((button)=>{
+            button.addEventListener("click", ()=>{
+                document.getElementById("clear-notes").style.visibility = "visible";
+                let el = document.createElement('div');
+                el.innerText = button.innerText;
+                el.classList.add("note");
+                el.setAttribute("data-note", button.getAttribute("data-note"));
+                document.getElementById("notes").append(el);
+                document.getElementById("notes").scrollBy(100,0);
+                
+            })
+        });
+        document.getElementById("clear-notes").addEventListener("click", ()=>{
+            document.getElementById("clear-notes").style.visibility = "hidden";
+            let delay = 0;
+            Array.from(document.querySelectorAll('.note')).reverse().forEach((note)=>{
+    
+                setTimeout(()=>{
+                    note.style.scale = "0";
+                    setTimeout(()=>{note.remove();}, 200);
+                }, delay);
+                delay += 15;
+    
+            });
+    
+    
+        });
+        document.querySelectorAll(".menu-button").forEach((button)=>{
+            let id = button.dataset.menu;
+            document.querySelectorAll(".menu").forEach((menu)=>{
+                if (menu.dataset.menu == id){
+                    button.addEventListener("click",()=>{
+                        menu.style.display="block";
+                        menu.style.opacity="0"
+                        setTimeout(()=>{menu.style.opacity="1";}, 0);
+                        document.querySelector(':root').style.setProperty('--body-blur', "blur(0.2rem)")
+                    })
+                }
+            })
+        });
+        document.querySelectorAll(".menu-close").forEach((button)=>{
+            let parent = button.parentElement;
+            button.addEventListener("click",()=>{
+                parent.style.opacity="0";
+                setTimeout(()=>{parent.style.display="none";}, 250);
+                document.querySelector(':root').style.setProperty('--body-blur', "")
+            })
+        });
+        document.getElementById("settings-notes").addEventListener("input", (event)=>{
+            if(document.getElementById("settings-notes").value < document.getElementById("settings-chromatics").value){
+                document.getElementById("settings-chromatics").value = document.getElementById("settings-notes").value;
+            };
+            if (document.getElementById("settings-notes").value < 6){
+                document.getElementById("settings-chromatics").max = document.getElementById("settings-notes").value;
+                et.chromatics = document.getElementById("settings-chromatics").value;
+            }
+            document.getElementById("notes-value").innerText = document.getElementById("settings-notes").value;
+            document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
+            et.notes = document.getElementById("settings-notes").value;
+            localStorage.setItem("notes_preference", et.notes);
+            localStorage.setItem("chromatics_preference", et.chromatics);
+            et.newChord();
+
+        });
+        document.getElementById("settings-chromatics").addEventListener("input", (event)=>{
+            document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
+            et.chromatics = document.getElementById("settings-chromatics").value;
+            localStorage.setItem("chromatics_preference", et.chromatics);
+            et.newChord();
+        });
+        return;
+    }
+}
+class EarTraining{
+    notes = 1;
+    chromatics = 0;
+    key = 1;
+    randomKey = true;
+    input;
+    exercise;
+    controls;
+    correct = 0;
+    incorrect = 0;
+    keylistens;
+    notelistens;
+    attempts;
+    constructor(){
+        this.newChord();
+        this.score = new ScoreBar(document.getElementById("correctVal"),document.getElementById("incorrectVal"),document.getElementById("meter-green"),document.getElementById("meter-red"));
+        this.input = document.getElementById('note-selector');
+        document.getElementById('enter').addEventListener('click',()=>{this.checkAnswer()});
+        this.controls = document.querySelector('#flow-controls');
+        document.getElementById('play-chord').addEventListener('click', ()=>{this.playChord()});
+        document.getElementById('play-key').addEventListener('click', ()=>{this.playKey()});
+        if (localStorage.getItem("correct_answers") != null){
+            this.correct = localStorage.getItem("correct_answers");
+        } else {
+            localStorage.setItem("correct_answers", 0);
+        }
+        if (localStorage.getItem("incorrect_answers") != null){
+            this.incorrect = localStorage.getItem("incorrect_answers");
+        } else {
+            localStorage.setItem("incorrect_answers", 0);
+        }
+        if (localStorage.getItem("notes_preference") != null){
+            this.notes = localStorage.getItem("notes_preference");
+        } else {
+            localStorage.setItem("notes_preference", this.notes);
+        }
+        document.getElementById("settings-notes").value = this.notes;   
+        document.getElementById("notes-value").innerText = document.getElementById("settings-notes").value;
+        if (localStorage.getItem("chromatics_preference") != null){
+            this.chromatics = localStorage.getItem("chromatics_preference");
+        } else {
+            localStorage.setItem("chromatics_preference", this.chromatics);
+        }
+        if(this.chromatics > this.notes){this.chromatics = this.notes;}
+        localStorage.setItem("chromatics_preference", this.chromatics);
+        document.getElementById("settings-chromatics").value = this.chromatics;   
+        document.getElementById("chromatics-value").innerText = document.getElementById("settings-chromatics").value;
+        if (document.getElementById("settings-notes").value < 6){
+            document.getElementById("settings-chromatics").max = document.getElementById("settings-notes").value;
+            this.chromatics = document.getElementById("settings-chromatics").value;
+        }
+        this.newChord();
+        
+    }
+    playKey(){
+        this.keylistens++
+        document.querySelector('#infobox').classList.remove("correct");
+        document.querySelector('#infobox').classList.remove("incorrect");
+        document.querySelector('#bigtext').innerText = "Playing key...";
+        let kp = "s";
+        if (this.keylistens == 1){
+            kp = ""
+        }
+        let np = "s";
+        if (this.notelistens == 1){
+            np = ""
+        }
+        document.querySelector('#littletext').innerText = "Once you know where Do is, listen to the notes.\nYou have listened to the key " + this.keylistens + " time" + kp + " and the notes " + this.notelistens + " time" + np + ".";
+        this.exercise.playKey();
+    }
+    playChord(){
+        this.notelistens++;
+        document.querySelector('#infobox').classList.remove("correct");
+        document.querySelector('#infobox').classList.remove("incorrect");
+        document.querySelector('#bigtext').innerText = "Playing notes...";
+        let kp= "s";
+        if (this.keylistens == 1){
+            kp = ""
+        }
+        let np = "s";
+        if (this.notelistens == 1){
+            np = ""
+        }
+        document.querySelector('#littletext').innerText = "Figure out the solfege of each note and enter your answer below.\nYou have listened to the key " + this.keylistens + " time" + kp + " and the notes " + this.notelistens + " time" + np + ".";
+        this.exercise.playChord();
+    }
+    checkAnswer(){
+        if(this.notelistens == 0){return;}
+        this.attempts++;
+        let answer = [];
+        document.querySelectorAll('.note').forEach((el)=>{
+            answer.push(el.dataset.note);
+        })
+        let delay = 0;
+        Array.from(document.querySelectorAll('.note')).reverse().forEach((note)=>{
+
+            setTimeout(()=>{
+                note.style.scale = "0";
+                setTimeout(()=>{note.remove();}, 200);
+            }, delay);
+            delay += 15;
+
+        });
+        if(this.exercise.checkAnswer(answer)){
+            this.score.increaseLeft();
+            this.correct++;
+            this.newChord();
+            document.querySelector('#infobox').classList.remove("incorrect");
+            document.querySelector('#infobox').classList.add("correct");
+            document.querySelector('#bigtext').innerText = "Correct!";
+            document.querySelector('#littletext').innerText = "Play the new key or notes to continue";
+            this.newChord();
+        } else {
+            if(answer.length == 0 && this.attempts > 1){
+                document.querySelector('#infobox').classList.remove("correct");
+                document.querySelector('#infobox').classList.add("incorrect");
+                document.querySelector('#bigtext').innerText = "You gave up!";
+                document.querySelector('#littletext').innerText = "The answer was " + this.exercise.answer.join(" ") + ".\nPlay the next key or notes to continue.";
+                this.newChord();
+                return;
+
+            }
+            if(this.attempts == 1){
+                this.score.increaseRight();
+                this.incorrect++;
+            }
+            document.querySelector('#infobox').classList.remove("correct");
+            document.querySelector('#infobox').classList.add("incorrect");
+            document.querySelector('#bigtext').innerText = "Incorrect!";
+            document.querySelector('#littletext').innerText = "Give it another listen any try again or submit a blank answer to give up.";
+        }
+    }
+    newChord(){
+        this.keylistens = 0;
+        this.notelistens = 0;
+        this.attempts = 0;
+        if (this.randomKey){
+            this.exercise = new Exercise(this.notes, this.chromatics);
+        } else {
+            this.exercise = new Exercise(this.notes, this.chromatics, this.key);
+        }
+    }
+}
+
+class ScoreBar{
+    leftText;
+    rightText;
+    leftBar;
+    rightBar;
+    left;
+    right;
+
+    constructor(leftText, rightText, leftBar, rightBar){
+        this.leftText = leftText;
+        this.rightText = rightText;
+        this.leftBar = leftBar;
+        this.rightBar = rightBar;
+        this.left = 0;
+        this.right = 0;
+    }
+    increaseLeft(){
+        this.left++;
+        this.leftText.innerText = this.left;
+        if(this.right == 0){
+            this.leftBar.style.width = "100%";
+            this.rightBar.style.width = "0%"
+            return;
+        }
+        this.leftBar.style.width = (this.left/(this.right + this.left)) * 100 + "%";
+        this.rightBar.style.width = (100 - (this.left/(this.right + this.left)) * 100) + "%";
+    }
+    increaseRight(){
+        this.right++;
+        this.rightText.innerText = this.right;
+        if(this.left == 0){
+            this.rightBar.style.width = "100%";
+            this.leftBar.style.width = "0%"
+            return;
+        }
+        this.leftBar.style.width = (this.left/(this.right + this.left)) * 100 + "%";
+        this.rightBar.style.width = (100 - (this.left/(this.right + this.left)) * 100) + "%";
+    }
+    decreaseLeft(){
+        if (this.left < 1){return;}
+        this.left--;
+        this.leftText.innerText = this.left;
+        if(this.left < 1){
+            this.leftBar.style.width = "0%";
+        }
+        this.leftBar.style.width = (this.left/(this.right + this.left)) * 100 + "%";
+        this.rightBar.style.width = (100 - (this.left/(this.right + this.left)) * 100) + "%";
+    }
+    decreaseRight(){
+        if (this.right < 1){return;}
+        this.right--;
+        this.rightText.innerText = this.right;
+        if(this.right < 1){
+            this.rightBar.style.width = "0%"
+        }
+        this.leftBar.style.width = (this.left/(this.right + this.left)) * 100 + "%";
+        this.rightBar.style.width = (100 - (this.left/(this.right + this.left)) * 100) + "%";
+    }
+    reset(){
+        this.leftText.innerText = 0;
+        this.rightText.innerText = 0;
+        this.rightBar.style.width= "0%";
+        this.leftBar.style.width = "0%";
+        this.left = 0;
+        this.right = 0;
+    }
+}
+Array.prototype.getRandomSubarray = function(size){
+    let shuffled = this.slice(0), i = this.length, min = i - size, temp, index;
     while (i-- > min) {
         index = Math.floor((i + 1) * Math.random());
         temp = shuffled[index];
@@ -15,178 +326,77 @@ function getRandomSubarray(arr, size) {
     }
     return shuffled.slice(min);
 }
-function generate(numPref,chromPref){
-    //clear answer field
-    document.getElementById('answer').value='';
-    //check for invalid settings
-    if (chromPref>numPref){
-        return
+class Solfege{
+    static get diatonic() {
+        return [1,3,5,6,8,10,12];
     }
-    // init variables
-    chord = [];
-    answer = [];
-    answerText = "";
-    //generate diatonics and chromatics
-    let dia=numPref-chromPref;
-    let chrom=chromPref;
-    let diaNotes = getRandomSubarray(diatonic,dia);
-    let chromNotes = getRandomSubarray(chromatic,chrom);
-    //combine and sort notes
-    chord = diaNotes.concat(chromNotes);
-    for (note = 0; note < chord.length; note++){
-        let octave = Math.round(Math.random());
-        if (octave==1){
-            chord[note]+=12;
-        }
-
-    };
-    chord.sort((a, b) => a - b);
-    answer = [...chord];
-    //generate answer string
-    for (let note = 0; note < chord.length; note++){
-        answerText+=solfege[chord[note]]+" ";
-    };
-    //apply key
-    keyModifier = Math.floor(Math.random() * 12);
-    for (note = 0; note < chord.length; note++){
-        chord[note]+=keyModifier;
-    };
-    //load notes wavs
-    notes = [];
-    for (note = 0; note < chord.length; note++){
-        noteNumber = chord[note].toString();
-        fileName = "assets/notes/" + noteNumber + ".wav";
-        notes[note] = new  Howl({
-            src: [fileName]
-        });
-    };
-    //load key signature wav
-    key = keyModifier+1
-    fileName = "assets/keys/" + key + ".wav";
-    keyAudio = new Howl({
-        src: [fileName]
-    });
-};
-function playChord(){
-    //play note wavs
-    for (note = 0; note < chord.length; note++){
-        notes[note].play();
-    };  
-};
-function playKey(){
-    keyAudio.play();
+    static get chromatic() {
+        return [2,4,7,9,11];
+    }
+    static get solfege() {
+        return ["ti","do","di-ra","re","ri-me","mi","fa","fi-se","so","si-le","la","li-te","ti","do","di-ra","re","ri-me","mi","fa","fi-se","so","si-le","la","li-te","ti","do"];
+    }
 }
-function checkAnswer(){
-    let correctAnswer;
-    let inputAnswer = document.getElementById("answer").value;
-    inputAnswer = inputAnswer.toLowerCase();
-    inputArray = inputAnswer.split(" ");
-    console.log(inputArray);
-    for (let i = 0; i < inputArray.length; i++){
-        if (inputArray[i]=="do"){
-            inputArray[i]=1;
+class Exercise{
+    static octaves = true;
+    chord;
+    answer;
+    key;
+    audio;
+    constructor(notes, chromatics, key = (Math.floor(Math.random() * 12) + 1)){
+        this.key = key;
+        let d = Solfege.diatonic.getRandomSubarray(notes - chromatics);
+        let c = Solfege.chromatic.getRandomSubarray(chromatics);
+        let tempChord = d.concat(c);
+        if (this.octaves && Math.round(Math.random()) == 1){
+            tempChord.forEach((note, index) => {
+                if(Math.round(Math.random()) == 1){
+                    tempChord[index] += 12;
+                }
+            });
         }
-        if (inputArray[i]=="di"||inputArray[i]=="ra"){
-            inputArray[i]=2;
-        }
-        if (inputArray[i]=="re"){
-            inputArray[i]=3;
-        }
-        if (inputArray[i]=="ri"||inputArray[i]=="me"){
-            inputArray[i]=4;
-        }
-        if (inputArray[i]=="mi"){
-            inputArray[i]=5;
-        }
-        if (inputArray[i]=="fa"){
-            inputArray[i]=6;
-        }
-        if (inputArray[i]=="fi"){
-            inputArray[i]=7;
-        }
-        if (inputArray[i]=="so"||inputArray[i]=="sol"){
-            inputArray[i]=8;
-        }
-        if (inputArray[i]=="si"||inputArray[i]=="le"){
-            inputArray[i]=9;
-        }
-        if (inputArray[i]=="la"){
-            inputArray[i]=10;
-        }
-        if (inputArray[i]=="li"||inputArray[i]=="te"){
-            inputArray[i]=11;
-        }
-        if (inputArray[i]=="ti"){
-            inputArray[i]=12;
-        }
+        tempChord.sort((a, b) => a - b);
+        this.answer = [];
+        tempChord.forEach((note, index) => {
+            this.answer.push(Solfege.solfege[note]);
+            tempChord[index]+=key - 1;
+        });
+        this.chord = [...tempChord];
+        this.audio = new Sound(this.chord, "assets/notes/", this.key, "assets/keys/", "wav");
     }
-    console.log(inputArray);
-    for (let i = 0; i < answer.length; i++){
-        if (inputArray[i]==answer[i]||inputArray[i]==answer[i]-12){
-            correctAnswer = true;
-        }
-        else{
-            correctAnswer = false;
-            break;
-        }
-
+    playChord(){
+        this.audio.playChord();
     }
-    if (correctAnswer) {
-        document.getElementById("feedback-box").classList.remove("alert-secondary");
-        document.getElementById("feedback-box").classList.remove("alert-danger");
-        document.getElementById("feedback-box").classList.add("alert-success");
-        document.getElementById("feedback").innerHTML = 'Correct!';
-        document.getElementById("feedback-text").innerHTML = 'Click "New Notes" to continue.';
-        document.getElementById("reveal").style.display = "none";
-    } 
-    else {
-        document.getElementById("feedback-box").classList.remove("alert-success");
-        document.getElementById("feedback-box").classList.remove("alert-secondary");
-        document.getElementById("feedback-box").classList.add("alert-danger");
-        document.getElementById("feedback").innerHTML = 'Incorrect!';
-        document.getElementById("feedback-text").innerHTML = 'Try again.';
-        document.getElementById("reveal").style.display = "inline";
-    }; 
-};
+    playKey(){
+        this.audio.playKey();
+    }
+    checkAnswer(input){
+        let correct = true
+        if (input.length != this.answer.length){correct = false;}
+        input.forEach((note, index)=>{
+            if (note != this.answer[index]){correct = false}
+        })
+        return correct;
+    }
+}
 
-document.addEventListener("DOMContentLoaded", function(){
-    $('select').selectpicker();
-    document.getElementById("reveal").style.display = "none";
-    generate(1,0)
-    document.getElementById("playKey").addEventListener("click", function(){
-        playKey();
-    });
-    document.getElementById("playChord").addEventListener("click", function(){
-        playChord();
-    });
-    document.getElementById("generate").addEventListener("click", function(){
-        let noteSelector = document.getElementById("notes");
-        noteSelection = noteSelector.value;
-        let chromSelector = document.getElementById("chromatics");
-        chromSelection = chromSelector.value;
-        generate(noteSelection,chromSelection);
-        document.getElementById("feedback-box").classList.remove("alert-success");
-        document.getElementById("feedback-box").classList.remove("alert-danger");
-        document.getElementById("feedback-box").classList.add("alert-secondary");
-        document.getElementById("feedback").innerHTML = 'Enter your answer';
-        document.getElementById("feedback-text").innerHTML = 'Click "Check Answer" to continue.';
-        document.getElementById("reveal").style.display = "none";
+class Sound {
+    chord;
+    key;
+    constructor(notes, notePath, key, keyPath, format){
+        this.chord = [];
+        notes.forEach((note)=>{
+            this.chord.push(new Howl({src: [notePath + note + "." + format]}))
+        });
+        this.key = new Howl({src: [keyPath + key + "." + format]});
+    }
+    playChord(){
+        this.chord.forEach((note)=>{
+            note.play();
+        })
+    }
+    playKey(){
+        this.key.play();
+    }
+}
 
-    });
-    document.getElementById("checkAnswer").addEventListener("click", function(){
-        checkAnswer();
-    
-    });
-    document.getElementById("reveal").addEventListener("click", function(){
-        document.getElementById("reveal").style.display = "none";
-        let message="The answer was: "+answerText;
-        document.getElementById("feedback-text").innerHTML = message;
-    
-    });
-    document.getElementById("answer").addEventListener("keydown", function(key){
-        if (key.code == "Enter") {  //checks whether the pressed key is "Enter"
-            checkAnswer();
-        }
-
-    });
-  });

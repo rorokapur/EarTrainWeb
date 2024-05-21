@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Solfege Ear Training is a web tool to help you train your ears using movable-do solfege. It plays a key and a set of notes and asks you to identify them using solfege syllables.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <title>Ear Training</title>
+        <link rel="shortcut icon" href="assets/icon/icon.ico" type="image/x-icon">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="shortcut icon" href="assets/icon/icon.ico" type="image/x-icon">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!--popperJS-->
+        <script src="https://unpkg.com/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <!-- Latest compiled JavaScript -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+
+        <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js" integrity="sha512-L6Z/YtIPQ7eU3BProP34WGU5yIRk7tNHk7vaC2dB1Vy1atz6wl9mCkTPPZ2Rn1qPr+vY2mZ9odZLdGYuaBk7dQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="script.js"></script>
+        <script defer src="https://us.umami.is/script.js" data-website-id="cd71049c-62a4-446b-8128-8856f1a08ee2"></script>
+        <style>
+            body {
+                overflow-x: hidden; 
+            } 
+        </style>
+        
+    </head>
+    <body>
+        <div class="jumbotron jumbotron-fluid text-center p-4 pb-2">
+            <div class="container">
+              <h1 class="display-4">Solfege Ear Training</h1>
+              <p>A tool to help you train your ears using movable do solfege</p>
+            </div>
+          </div>
+        <div class="container-fluid">
+            <div class="row p-2">
+                <div class="col-lg-1 col-md-0"></div>
+                <select id="notes" class="col-lg-3 col-md-12 p-1 selectpicker" data-style="btn-primary" >
+                    <option value="1">1 Note</option>
+                    <option value="2">2 Notes</option>
+                    <option value="3">3 Notes</option>
+                    <option value="4">4 Notes</option>
+                    <option value="5">5 Notes</option>
+                    <option value="6">6 Notes</option>
+                    <option value="7">7 Notes</option>
+                </select>
+                <div class=" col-lg-1 col-md-0"></div>
+                <select id="chromatics" class="col-lg-3 col-md-12 p-1 selectpicker" data-style="btn-primary" >
+                    <option value="0">0 Chromatics</option>
+                    <option value="1">1 Chromatic</option>
+                    <option value="2">2 Chromatics</option>
+                    <option value="3">3 Chromatics</option>
+                    <option value="4">4 Chromatics</option>
+                    <option value="5">5 Chromatics</option>
+                </select>
+                <div class="col-lg-1 col-md-0"></div>
+                <button id="generate" class="col-lg-2 col-md-12 p-4 btn btn-primary">New Notes</button>
+            </div>
+            <div class="row p-2">
+                <div class="col-lg-1 col-md-0"></div>
+                <div class="btn-group col-lg-4 col-md-12">
+                    <button id="playKey" class="btn p-4 btn-outline-primary">Play Key</button>
+                    <button id="playChord" class="btn p-4 btn-outline-primary">Play Notes</button>
+            
+                </div>
+                <input type="text" id="answer" class="col-lg-4 p-4 col-md-8 form-inline" placeholder="Enter your answer">
+                <button id="checkAnswer" class="col-lg-2 col-md-4 p-4 btn btn-primary">Check Answer</button>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="alert alert-secondary" id="feedback-box" role="alert">
+                    <h4 class="alert-heading" id="feedback">Hello!</h4>
+                    <hr>
+                    <p id="feedback-text">Enter your preferred settings and press "New Notes" to start.</p>
+                    <a href="#" class="link-danger" id="reveal">Reveal Answer</a>
+                </div>
+            </div>
+            <h2 class="offset-lg-1 offset-md-0">How to use</h1>  
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p style="font-size: 20px;" class="col-lg-10 col-md-12">1. Enter your preferences for notes and chromatics. Chromatics are any notes that are not in the major scale.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p style="font-size: 20px;" class="col-lg-10 col-md-12">2. Click "New Notes" to generate a new set of notes.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p style="font-size: 20px;" class="col-lg-10 col-md-12">3. Play the key to find do.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p style="font-size: 20px;" class="col-lg-10 col-md-12">4. Listen to the chord as many times as you need to.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p style="font-size: 20px;" class="col-lg-10 col-md-12">5. Enter your answer using solfege starting with the lowest note and ending with the highest note. Both "so" and "sol" are acceptable in answers, and on notes that share names (e.g. ra and di) either name is acceptable.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <h2 class="offset-lg-1 offset-md-0">What is movable do solfege ear training?</h1>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p class="col-lg-10 col-md-12">To understand what this type of ear training is, you first need to understand what movable do solfege is. Movable do solfege is a type of solfege where instead of having an absolute note value, each solfege note corresponds to a certain note in a key. Solfege is a way to name notes in a key and is commonly used with singing. It is meant to be an easy way to refer to specific notes in a scale. For example, the first note of a scale is Do, the second is Re, etc. Knowing solfege can be very useful for many different purposes, such as analyzing music, writing songs, singing in a choir, and ear training.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p class="col-lg-10 col-md-12">Ear training refers to any method used to improve your ability to hear and identify musical concepts. This can come in many forms, such as listening to a chord and identifying the interval between notes, transcribing a chord or melody, and more. This program uses solfege to improve your ability to identify specific notes in a chord, which can be a useful skill when analyzing/transcribing music and will also improve your ability in playing with other musicians, a skill which is incredibly important in a world where musicians rely less on sheet music and more on listening to one another.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p class="col-lg-10 col-md-12">This type of ear training asks you to listen carefully to a chord and determine what solfege notes make up that chord. Because this system uses movable do, the solfege in a key will vary depending on where Do is – because of this, a specific key is provided so that you know what note to consider “Do”. For example, if the chord you are trying to find consists of an E and a G, the answer would be “Mi, Sol” if Do was C, but would be “Sol, Te” if Do was A.</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <h2 class="offset-lg-1 offset-md-0">Project Repository</h1>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p class="col-lg-10 col-md-12" style="font-size: 20px;">This site is hosted using GitHub Pages, and the code is all available in a repo</p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p class="col-lg-10 col-md-12" style="font-size: 20px;"><a href="https://github.com/rorokapur/EarTraining">Link to repository</a></p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            <h2 class="offset-lg-1 offset-md-0">Having Problems?</h1>
+            <div class="row">
+                <div class="col-lg-1 col-md-0"></div>
+                <p class="col-lg-10 col-md-12" style="font-size: 20px;">If you find any bugs or anything else wrong with the site, please feel free to tell me and I will try my best to fix it. You can email me at help@solfegeeartraining.com </p>
+                <div class="col-lg-1 col-md-0"></div>
+            </div>
+            
+            
+        </div>
+    
+    </body>
+    <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3">
+          Made by 
+          <a class="text-dark" href="https://github.com/rorokapur">Rohan Kapur</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+</html>
