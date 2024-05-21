@@ -89,6 +89,9 @@ body{
     margin: 0;
     background-color: var(--bg-color);
     font-family: "Noto Sans Display", sans-serif;
+    a{
+        color: var(--dim-text);
+    }
 }
 #toolbar{
     display: flex;

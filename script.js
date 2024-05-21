@@ -3,6 +3,16 @@ let et;
 document.addEventListener('DOMContentLoaded', ()=>{
     Controls.init();
     et = new EarTraining();
+    // temporary UI change message.
+    document.getElementById("ui-message-close").addEventListener("click",()=>{
+        localStorage.setItem("ui-message-dismissed", 1);
+    });
+    if(localStorage.getItem("ui-message-dismissed") != 1){
+        document.getElementById("new-ui-message").style.display="block";
+        document.getElementById("new-ui-message").style.opacity="0"
+        setTimeout(()=>{document.getElementById("new-ui-message").style.opacity="1";}, 0);
+        document.querySelector(':root').style.setProperty('--body-blur', "blur(0.2rem)")
+    }
 })
 class DarkMode{
     static dark(){

@@ -10,7 +10,7 @@
     <body>
         <div id="app">
             <div id="header">
-                <h4>Solfege Ear Training</h4>
+                <h3>Solfege Ear Training</h3>
                 <div id="toolbar">
                     <svg onclick="DarkMode.light()" class="icon" id="dark-mode-toggle" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
                     <svg onclick="DarkMode.dark()" class="icon" id="light-mode-toggle" idxmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z"/></svg>
@@ -70,6 +70,17 @@
         <div id="help" class="menu" data-menu="help">
             <svg class="menu-close icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             <div id="help-content" class="menu-content">
+                <h3>About</h3>
+                <p>Made by <a href="https://rohankapur.dev">Rohan Kapur</a></p>
+                <p>Code available on <a href="https://github.com/rorokapur/ear-training">GitHub</a></p>
+                <p>Uses <a href="https://howlerjs.com/">Howler.js</a> and <a href="https://github.com/google/material-design-icons">Material Symbols</a></p>
+                <p><a href="old.html">Go back to old version</a></p>
+                <h3>How to use</h3>
+                <p>1. Open the settings menu and select the number of notes and chromatics you want. If you are brand new to this type of ear training, 1 note and 0 chromatics should be a good place to start.</p>
+                <p>2. Play the key to find the solfege syllable Do, which is the root of the key.</p>
+                <p>3. Play the notes and try to determine the solfege syllable for each.</p>
+                <p>4. When you have your answer, input it using the keypad. If your answer is correct, you will be given a new excersize. If it is wrong, you can try again or give up by submitting a blank answer (pressing enter again).</p>
+                <h3>Solfege Ear Training</h3>
                 <p>To understand what this type of ear training is, you first need to understand what movable do solfege is. Movable do solfege is a type of solfege where instead of having an absolute note value, each solfege note corresponds to a certain note in a key. Solfege is a way to name notes in a key and is commonly used with singing. It is meant to be an easy way to refer to specific notes in a scale. For example, the first note of a scale is Do, the second is Re, etc. Knowing solfege can be very useful for many different purposes, such as analyzing music, writing songs, singing in a choir, and ear training.</p>
                 <p>Ear training refers to any method used to improve your ability to hear and identify musical concepts. This can come in many forms, such as listening to a chord and identifying the interval between notes, transcribing a chord or melody, and more. This program uses solfege to improve your ability to identify specific notes in a chord, which can be a useful skill when analyzing/transcribing music and will also improve your ability in playing with other musicians, a skill which is incredibly important in a world where musicians rely less on sheet music and more on listening to one another.</p>
                 <p>This type of ear training asks you to listen carefully to a chord and determine what solfege notes make up that chord. Because this system uses movable do, the solfege in a key will vary depending on where Do is – because of this, a specific key is provided so that you know what note to consider “Do”. For example, if the chord you are trying to find consists of an E and a G, the answer would be “Mi, Sol” if Do was C, but would be “Sol, Te” if Do was A.</p>
@@ -88,6 +99,14 @@
                         <input type="range" min="0" max="5" id="settings-chromatics"><div id="chromatics-value">0</div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="new-ui-message" class="menu" data-menu="new-ui-message">
+            <svg id="ui-message-close" class="menu-close icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            <div id="new-ui-message-content" class="menu-content">
+                <h3>Solfege Ear Training has a new look!</h3>
+                If you need help, you can click the question mark in the upper right corner, or if you don't like the changes you can <a href="old.html">go back to the old version</a>.
+                A link to the old version will always be available in the help section.
             </div>
         </div>
     </body>
