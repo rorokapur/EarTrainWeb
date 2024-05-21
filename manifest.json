@@ -12,7 +12,9 @@
   "icons": [
     {
       "src": "assets/icon/icon.png",
-      "type": "image/x-icon"
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "id": "solfegeeartraining"
