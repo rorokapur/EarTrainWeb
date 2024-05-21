@@ -10,6 +10,11 @@
         <script src="howler.core.js"></script>
         <script src="script.js"></script>
         <script defer src="https://us.umami.is/script.js" data-website-id="cd71049c-62a4-446b-8128-8856f1a08ee2"></script>
+        <script>
+            if (typeof navigator.serviceWorker !== 'undefined') {
+              navigator.serviceWorker.register('sw.js')
+            }
+          </script>
     </head>
     <body>
         <div id="app">
