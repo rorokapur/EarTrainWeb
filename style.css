@@ -99,6 +99,9 @@ body{
     margin-top: auto;
     margin-bottom: auto;
 }
+#new-ui-message{
+    top: 5%;
+}
 .icon{
     padding: 0.5rem;
     width: 1.5rem;
