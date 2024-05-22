@@ -99,6 +99,18 @@ body{
     margin-top: auto;
     margin-bottom: auto;
 }
+#title{
+    display: flex;
+    justify-content: left;
+    margin-top: auto;
+    margin-bottom: auto;
+    svg{
+        margin: auto;
+        padding-right: 0.25rem;
+        padding-left: 0;
+    }
+
+}
 #new-ui-message{
     top: 5%;
 }
