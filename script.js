@@ -234,7 +234,7 @@ class EarTraining{
             document.querySelector('#infobox').classList.remove("correct");
             document.querySelector('#infobox').classList.add("incorrect");
             document.querySelector('#bigtext').innerText = "Incorrect!";
-            document.querySelector('#littletext').innerText = "Give it another listen any try again or submit a blank answer to give up.";
+            document.querySelector('#littletext').innerText = "Give it another listen and try again or submit a blank answer to give up.";
         }
     }
     newChord(){
